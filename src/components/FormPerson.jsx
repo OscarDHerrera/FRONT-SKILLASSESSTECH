@@ -107,7 +107,7 @@ export default function FormPerson(){
                     variant= "contained"
                     color={"success"}
                 >
-                    Guardar persona
+                    Guardar Usuario
                 </Button>
             </Form>
             <CreateAlert handleCloseCreate={handleCloseCreate} showCreateAlert={showCreateAlert} />
