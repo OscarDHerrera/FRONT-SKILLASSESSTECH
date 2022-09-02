@@ -22,6 +22,9 @@ export default function FormPerson(){
         age:'',
     });
 
+    const [severityResponse, setSeverityResponse] = useState("")
+    const [messageResponse,setMessageResponse] = useState("")
+
     const [showCreateAlert, setShowCreateAlert] = useState(false)
 
     const handleChangeGender = (e) => {
@@ -55,12 +58,16 @@ export default function FormPerson(){
             ).then((res) => {
                 const responseStatus = res.status
                     if (responseStatus === 201){
+                        setSeverityResponse("success")
+                        setMessageResponse("Usuario Creado")
                         handleShowCreate();
                     }
             })
             // navigate('/person-table')
             .catch((error) => {
-                console.log(error)
+                setSeverityResponse( "error")
+                setMessageResponse("Error al crear el usuario")
+                handleShowCreate();
             });
     }
 
@@ -110,7 +117,7 @@ export default function FormPerson(){
                     Guardar Usuario
                 </Button>
             </Form>
-            <CreateAlert handleCloseCreate={handleCloseCreate} showCreateAlert={showCreateAlert} />
+            <CreateAlert handleCloseCreate={handleCloseCreate} showCreateAlert={showCreateAlert} severityResponse={severityResponse} messageResponse={messageResponse} />
         </Container>
 
     )}
