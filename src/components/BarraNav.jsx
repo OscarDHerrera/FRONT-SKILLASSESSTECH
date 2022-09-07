@@ -21,8 +21,8 @@ export default function BarraNav() {
 
     const pages =
         [
-            {id: 1, name: 'Crear Usuario', url: '/create-person'},
-            {id: 2, name: 'Ver Usuario', url: '/person-table'}
+            {id: 1, name: 'Crear Usuario', url: '/create-user'},
+            {id: 2, name: 'Ver Usuario', url: '/users-table'}
         ]
 
     const settings =

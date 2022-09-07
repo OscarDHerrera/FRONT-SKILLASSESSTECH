@@ -12,8 +12,8 @@ export default function App() {
           <Routes>
             <Route exact path='/' element={<BarraNav />}>
               <Route exact path='/' element = {<Home />} />
-              <Route exact path='/create-person' element={<FormPerson/>} />
-              <Route exact path='/person-table' element={<PracTable/>} />
+              <Route exact path='/create-user' element={<FormPerson/>} />
+              <Route exact path='/users-table' element={<PracTable/>} />
             </Route>
           </Routes>
         </BrowserRouter>

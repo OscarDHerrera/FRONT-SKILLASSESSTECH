@@ -8,7 +8,7 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button"
 
 export default function PracTable(){
-    const [persons, setPerson] = useState([]);
+    const [users, setUser] = useState([]);
 
     const [showDelete,setShowDelete] = useState(false);
 
@@ -20,7 +20,7 @@ export default function PracTable(){
 
     useEffect(() => {
        function updateTable() {
-            GetPerson().then((persons) => setPerson(persons));
+            GetPerson().then((users) => setUser(users));
         }
         updateTable();
         const refreshInterval = setInterval(() => {
@@ -31,6 +31,7 @@ export default function PracTable(){
         }
     },[]);
 
+    console.log(users)
     const handleShowDelete = () => setShowDelete(true);
     const handleCloseDelete = () => setShowDelete(false);
 
@@ -57,7 +58,7 @@ export default function PracTable(){
                     </tr>
                 </thead>
                 <tbody>
-                    {persons.map(({id, gender, name, age}) => (
+                    {users.map(({id, gender, name, age}) => (
                         <tr key={id}>
                             <td>{id}</td>
                             <td>{gender}</td>
