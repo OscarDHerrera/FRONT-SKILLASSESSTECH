@@ -1,52 +1,220 @@
-import React from 'react';
-import Navbar from 'react-bootstrap/Navbar';
-import { Nav,Container, Offcanvas } from 'react-bootstrap';
-import { Outlet } from 'react-router-dom';
+import * as React from 'react';
+import {
+    AppBar,
+    Box,
+    Toolbar,
+    IconButton,
+    Typography,
+    Menu,
+    Container,
+    Avatar,
+    Button,
+    Tooltip,
+    MenuItem
+} from '@mui/material';
+import {Outlet} from 'react-router-dom';
+import MenuIcon from '@mui/icons-material/Menu';
+import AdbIcon from '@mui/icons-material/Adb';
+import {Link} from 'react-router-dom'
 
-export default function BarraNav(){
+export default function BarraNav() {
+
+    const pages =
+        [
+            {id: 1, name: 'Crear Usuario', url: '/create-user'},
+            {id: 2, name: 'Ver Usuario', url: '/users-table'}
+        ]
+
+    const settings =
+        [
+            {id: 1, name: 'Profile', url: '/Profile'},
+            {id: 2, name: 'Account', url: '/Account'}
+        ]
+
+    const [anchorElNav, setAnchorElNav] = React.useState(null);
+    const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+    const handleOpenNavMenu = (event) => {
+        setAnchorElNav(event.currentTarget);
+    };
+    const handleOpenUserMenu = (event) => {
+        setAnchorElUser(event.currentTarget);
+    };
+
+    const handleCloseNavMenu = () => {
+        setAnchorElNav(null);
+    };
+
+    const handleCloseUserMenu = () => {
+        setAnchorElUser(null);
+    };
 
     return (
         <main>
-            <Navbar bg="light" expand={false}>
-                <Container fluid>
-                    <Navbar.Brand href="/">React-Practica</Navbar.Brand>
-                    <Navbar.Toggle aria-controls="offcanvasNavbar" />
-                    <Navbar.Offcanvas
-                        id="offcanvasNavbar"
-                        aria-labelledby="offcanvasNavbarLabel"
-                        placement="end"
-                    >
-                        <Offcanvas.Header closeButton>
-                            <Offcanvas.Title id="offcanvasNavbarLabel">Menú</Offcanvas.Title>
-                        </Offcanvas.Header>
-                        <Offcanvas.Body>
-                            <Nav className="justify-content-end flex-grow-1 pe-3">
+            <AppBar sx={{bgcolor: '#ff1837'}} position={'static'}>
+                <Container maxWidth={'xxl'}>
+                    <Toolbar disableGutters>
+                        <AdbIcon sx={{display: {xs: 'none', md: 'flex'}, mr: 1}}/>
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component={Link}
+                            to={'/'}
+                            sx={{
+                                mr: 2,
+                                display: {xs: 'none', md: 'flex'},
+                                fontFamily: 'monospace',
+                                fontWeight: 700,
+                                letterSpacing: '.3rem',
+                                color: '#333333',
+                                textDecoration: 'none',
+                                ":hover": {
+                                    color: 'white',
+                                }
+                            }}
+                        >
+                            Recruiter
+                        </Typography>
+                        <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
+                            <IconButton
+                                size="large"
+                                aria-label="account of current user"
+                                aria-controls="menu-appbar"
+                                aria-haspopup="true"
+                                onClick={handleOpenNavMenu}
+                                sx={{color: '#333333'}}
+                            >
+                                <MenuIcon/>
+                            </IconButton>
+                            <Menu
+                                id="menu-appbar"
+                                anchorEl={anchorElNav}
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'left',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'left',
+                                }}
+                                open={Boolean(anchorElNav)}
+                                onClose={handleCloseNavMenu}
+                                sx={{
+                                    display: {xs: 'block', md: 'none'},
+                                }}
+                            >
+                                {pages.map((page) => (
+                                    <MenuItem key={page.id} onClick={handleCloseNavMenu}>
+                                        <Button
+                                            component={Link}
+                                            to={page.url}
+                                            key={page.id}
+                                            onClick={handleCloseNavMenu}
+                                            sx={{
+                                                my: 2, color: '#333333', display: 'block', ":hover": {
+                                                    color: '#333333',
+                                                }
+                                            }
+                                            }
+                                        >
+                                            {page.name}
+                                        </Button>
+                                    </MenuItem>
+                                ))}
+                            </Menu>
+                        </Box>
+                        <AdbIcon sx={{display: {xs: 'flex', md: 'none'}, mr: 1}}/>
+                        <Typography
+                            variant="h5"
+                            noWrap
+                            component={Link}
+                            to={'/'}
+                            sx={{
+                                mr: 2,
+                                display: {xs: 'flex', md: 'none'},
+                                flexGrow: 1,
+                                fontFamily: 'monospace',
+                                fontWeight: 700,
+                                letterSpacing: '.3rem',
+                                color: '#333333',
+                                textDecoration: 'none',
+                                ":hover": {
+                                    color: 'white',
+                                }
+                            }}
+                        >
+                            Recruiter
+                        </Typography>
+                        <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
+                            {pages.map((page) => (
+                                <Button
+                                    component={Link}
+                                    to={page.url}
+                                    key={page.id}
+                                    onClick={handleCloseNavMenu}
+                                    sx={{
+                                        my: 2, color: '#333333', display: 'block', ":hover": {
+                                            color: '#333333',
+                                        }
+                                    }
+                                    }
+                                >
+                                    {page.name}
+                                </Button>
+                            ))}
+                        </Box>
 
-                                <Nav.Link href="/create-person">
-                                    {' '}
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-node-plus-fill" viewBox="0 0 16 16">
-                                        <path d="M11 13a5 5 0 1 0-4.975-5.5H4A1.5 1.5 0 0 0 2.5 6h-1A1.5 1.5 0 0 0 0 7.5v1A1.5 1.5 0 0 0 1.5 10h1A1.5 1.5 0 0 0 4 8.5h2.025A5 5 0 0 0 11 13zm.5-7.5v2h2a.5.5 0 0 1 0 1h-2v2a.5.5 0 0 1-1 0v-2h-2a.5.5 0 0 1 0-1h2v-2a.5.5 0 0 1 1 0z" />
-                                    </svg>
-                                    {' '}
-                                    Crear Persona
-                                </Nav.Link>
-
-                                <Nav.Link href="/person-table">
-                                    {' '}
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-pencil-square" viewBox="0 0 16 16">
-                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                                        <path fillRule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-                                    </svg>
-                                    {' '}
-                                    Ver Persona
-                                </Nav.Link>
-                            </Nav>
-                        </Offcanvas.Body>
-                    </Navbar.Offcanvas>
+                        <Box sx={{flexGrow: 0}}>
+                            <Tooltip title="Configuración de Cuenta">
+                                <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
+                                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg"/>
+                                </IconButton>
+                            </Tooltip>
+                            <Menu
+                                sx={{mt: '54px'}}
+                                id="menu-appbar"
+                                anchorEl={anchorElUser}
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                open={Boolean(anchorElUser)}
+                                onClose={handleCloseUserMenu}
+                            >
+                                {settings.map((setting) => (
+                                    <MenuItem key={setting.id} onClick={handleCloseUserMenu}>
+                                        <Typography textAlign="center">
+                                            <Button
+                                                component={Link}
+                                                to={setting.url}
+                                                key={setting.id}
+                                                onClick={handleCloseNavMenu}
+                                                sx={{
+                                                    my: 2, color: '#333333', display: 'block', ":hover": {
+                                                        color: '#333333',
+                                                    }
+                                                }
+                                                }
+                                            >
+                                                {setting.name}
+                                            </Button>
+                                        </Typography>
+                                    </MenuItem>
+                                ))}
+                            </Menu>
+                        </Box>
+                    </Toolbar>
                 </Container>
-            </Navbar>
+            </AppBar>
             <section>
-                <Outlet />
+                <Outlet/>
             </section>
         </main>
-    )}
+    )
+}

@@ -77,12 +77,11 @@ const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export function CreateAlert ({showCreateAlert, handleCloseCreate}){
-
+export function CreateAlert ({showCreateAlert, handleCloseCreate, severityResponse, messageResponse}){
     return (
         <Snackbar open={showCreateAlert} autoHideDuration={6000} onClose={handleCloseCreate}>
-            <Alert onClose={handleCloseCreate} severity={"success"} sx={{ width: '100%' }}>
-                Usuario creado
+            <Alert onClose={handleCloseCreate} severity={`${severityResponse}`} sx={{ width: '100%' }}>
+                <p> {messageResponse} </p>
             </Alert>
         </Snackbar>
     )
