@@ -11,7 +11,7 @@ import Stack from '@mui/material/Stack';
 export function DeleteAlert({ handleCloseDelete, toDeleteId }){
     const deletePerson = (id) => {
         axios
-            .delete(`http://localhost:8000/fast-practice/delete-person/${id}`)
+            .delete(`http://10.40.100.57:8000/user/delete-user/${id}`)
             .then((response)=>{
                 console.log(response)
             })
@@ -81,7 +81,7 @@ export function CreateAlert ({showCreateAlert, handleCloseCreate, severityRespon
     return (
         <Snackbar open={showCreateAlert} autoHideDuration={6000} onClose={handleCloseCreate}>
             <Alert onClose={handleCloseCreate} severity={`${severityResponse}`} sx={{ width: '100%' }}>
-                <p> {messageResponse} </p>
+                {messageResponse}
             </Alert>
         </Snackbar>
     )

@@ -5,7 +5,6 @@ import {
 } from 'react-bootstrap';
 import axios from 'axios';
 import {CreateAlert} from "./AlertsApp";
-// import { useNavigate } from 'react-router-dom';
 import {
     MenuItem,FormControl,Select,Button,FormHelperText,InputLabel,TextField
 } from '@mui/material';
@@ -14,23 +13,22 @@ import {
 
 export default function FormPerson(){
 
-    // const navigate = useNavigate();
-
     const [newPerson, setNewPerson] = useState({
-        gender: 'None',
+        email: '',
         name:'',
-        age:'',
+        last_name:'',
+        password:'',
+        role:''
     });
 
     const [severityResponse, setSeverityResponse] = useState("")
     const [messageResponse,setMessageResponse] = useState("")
-
     const [showCreateAlert, setShowCreateAlert] = useState(false)
 
-    const handleChangeGender = (e) => {
+    const handleChangeEmail = (e) => {
         setNewPerson({
             ...newPerson,
-            gender: e.target.value
+            email: e.target.value
         });
     };
 
@@ -41,10 +39,24 @@ export default function FormPerson(){
         });
     };
 
-    const handleChangeAge = (e) => {
+    const handleChangeLastName = (e) => {
         setNewPerson({
             ...newPerson,
-            age: e.target.value
+            last_name: e.target.value
+        });
+    };
+
+    const handleChangePassword = (e) => {
+        setNewPerson({
+            ...newPerson,
+            password: e.target.value
+        });
+    };
+
+    const handleChangeRole = (e) => {
+        setNewPerson({
+            ...newPerson,
+            role: e.target.value
         });
     };
 
@@ -54,16 +66,15 @@ export default function FormPerson(){
     const handleSubmit = (e) => {
         e.preventDefault();
         axios
-            .post("http://127.0.0.1:8000/fast-practice/create_person",newPerson
+            .post("http://10.40.100.57:8000/user/create_user",newPerson
             ).then((res) => {
-                const responseStatus = res.status
-                    if (responseStatus === 201){
+                const responseStatus = res
+                    if (responseStatus.status === 201){
                         setSeverityResponse("success")
-                        setMessageResponse("Usuario Creado")
+                        setMessageResponse(responseStatus.data.message)
                         handleShowCreate();
                     }
             })
-            // navigate('/person-table')
             .catch((error) => {
                 setSeverityResponse( "error")
                 setMessageResponse("Error al crear el usuario")
@@ -74,41 +85,61 @@ export default function FormPerson(){
     return(
         <Container>
             <Form onSubmit={handleSubmit}>
-                <FormControl  required fullWidth variant={"standard"}>
-                    <InputLabel id={"gender"}>Género</InputLabel>
-                    <Select
-                        name={"gender"}
-                        id={"gender"}
-                        value={ newPerson.gender.value }
-                        label={"gender"}
-                        onChange={handleChangeGender}
-                        defaultValue = ""
-                    >
-                        <MenuItem value=""><em>Ninguno</em></MenuItem>
-                        <MenuItem value="Masculino">Masculino</MenuItem>
-                        <MenuItem value="Femenino">Femenino</MenuItem>
-                        <MenuItem value="Otro">Otro</MenuItem>
-                    </Select>
-                    <FormHelperText>Selecciona un Género</FormHelperText>
-                </FormControl>
+
                 <TextField
                     fullWidth
                     required
-                    id="Name"
+                    name="role"
+                    id="role"
+                    label="Rol del usuario"
+                    variant="standard"
+                    helperText="Ingresa el Rol que tendrá el usuario"
+                    onChange={handleChangeRole}
+                />
+
+                <TextField
+                    fullWidth
+                    required
+                    id="email"
+                    label="Email"
+                    variant="standard"
+                    helperText="Ingresa tu Email"
+                    onChange={handleChangeEmail}
+                />
+
+                <TextField
+                    fullWidth
+                    required
+                    id="name"
                     label="Nombre"
                     variant="standard"
                     helperText="Ingresa tu Nombre"
                     onChange={handleChangeName}
                 />
+
                 <TextField
                     fullWidth
                     required
-                    id="Age"
-                    label="Age"
+                    name="last_name"
+                    id="last_name"
+                    label="Apellido"
                     variant="standard"
-                    helperText="Ingresa tu Edad"
-                    onChange={handleChangeAge}
+                    helperText="Ingresa tu Apellido"
+                    onChange={handleChangeLastName}
                 />
+
+                <TextField
+                    fullWidth
+                    required
+                    name="password"
+                    id="password"
+                    label="Contraseña"
+                    variant="standard"
+                    type={"password"}
+                    helperText="Ingresa la contraseña que el usuario utilizará para ingresar al aplicativo"
+                    onChange={handleChangePassword}
+                />
+
                 <Button
                     type="submit"
                     variant= "contained"
@@ -117,7 +148,12 @@ export default function FormPerson(){
                     Guardar Usuario
                 </Button>
             </Form>
-            <CreateAlert handleCloseCreate={handleCloseCreate} showCreateAlert={showCreateAlert} severityResponse={severityResponse} messageResponse={messageResponse} />
+            <CreateAlert handleCloseCreate={handleCloseCreate}
+                        showCreateAlert={showCreateAlert} 
+                        severityResponse={severityResponse} 
+                        messageResponse={messageResponse} 
+            />
         </Container>
 
-    )}
+    )
+}

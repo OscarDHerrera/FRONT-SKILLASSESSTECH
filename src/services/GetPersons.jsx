@@ -1,6 +1,6 @@
 
 export default function GetPersons(){
-    const apiUrl = 'http://localhost:8000/user/see_users';
+    const apiUrl = 'http://10.40.100.57:8000/user/see_users';
 
     return fetch(apiUrl)
         .then((res) => res.json())

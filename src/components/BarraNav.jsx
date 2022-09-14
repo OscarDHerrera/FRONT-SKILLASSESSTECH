@@ -22,7 +22,7 @@ export default function BarraNav() {
     const pages =
         [
             {id: 1, name: 'Crear Usuario', url: '/create-user'},
-            {id: 2, name: 'Ver Usuario', url: '/users-table'}
+            {id: 2, name: 'Ver Usuarios', url: '/users-table'}
         ]
 
     const settings =
@@ -51,7 +51,7 @@ export default function BarraNav() {
 
     return (
         <main>
-            <AppBar sx={{bgcolor: '#ff1837'}} position={'static'}>
+            <AppBar sx={{bgcolor: '#ff1837'}} position={'static'} className="mb-3">
                 <Container maxWidth={'xxl'}>
                     <Toolbar disableGutters>
                         <AdbIcon sx={{display: {xs: 'none', md: 'flex'}, mr: 1}}/>
