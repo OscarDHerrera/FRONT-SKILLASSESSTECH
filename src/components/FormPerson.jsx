@@ -1,29 +1,29 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Container } from 'react-bootstrap';
 import {
     Form
 } from 'react-bootstrap';
 import axios from 'axios';
-import {CreateAlert} from "./AlertsApp";
+import { AppAlert } from "./AlertsApp";
 import {
-    MenuItem,FormControl,Select,Button,FormHelperText,InputLabel,TextField
+    Button, TextField
 } from '@mui/material';
 
 
 
-export default function FormPerson(){
+export default function FormPerson() {
 
     const [newPerson, setNewPerson] = useState({
         email: '',
-        name:'',
-        last_name:'',
-        password:'',
-        role:''
+        name: '',
+        last_name: '',
+        password: '',
+        role: ''
     });
 
     const [severityResponse, setSeverityResponse] = useState("")
-    const [messageResponse,setMessageResponse] = useState("")
-    const [showCreateAlert, setShowCreateAlert] = useState(false)
+    const [messageResponse, setMessageResponse] = useState("")
+    const [showAlert, setShowAlert] = useState(false)
 
     const handleChangeEmail = (e) => {
         setNewPerson({
@@ -60,29 +60,29 @@ export default function FormPerson(){
         });
     };
 
-    const handleShowCreate = () => setShowCreateAlert(true);
-    const handleCloseCreate = () => setShowCreateAlert(false);
+    const handleShowAlert = () => setShowAlert(true);
+    const handleCloseAlert = () => setShowAlert(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         axios
-            .post("http://10.40.100.57:8000/user/create_user",newPerson
+            .post("http://10.40.100.57:8000/user/create_user", newPerson
             ).then((res) => {
                 const responseStatus = res
-                    if (responseStatus.status === 201){
-                        setSeverityResponse("success")
-                        setMessageResponse(responseStatus.data.message)
-                        handleShowCreate();
-                    }
+                if (responseStatus.status === 201) {
+                    setSeverityResponse("success")
+                    setMessageResponse(responseStatus.data.message)
+                    handleShowAlert();
+                }
             })
             .catch((error) => {
-                setSeverityResponse( "error")
-                setMessageResponse("Error al crear el usuario")
-                handleShowCreate();
+                setSeverityResponse("error")
+                setMessageResponse(error.response.data.message)
+                handleShowAlert();
             });
     }
 
-    return(
+    return (
         <Container>
             <Form onSubmit={handleSubmit}>
 
@@ -136,22 +136,23 @@ export default function FormPerson(){
                     label="Contraseña"
                     variant="standard"
                     type={"password"}
-                    helperText="Ingresa la contraseña que el usuario utilizará para ingresar al aplicativo"
+                    helperText="Ingresa la contraseña que el 
+                                usuario utilizará para ingresar al aplicativo"
                     onChange={handleChangePassword}
                 />
 
                 <Button
                     type="submit"
-                    variant= "contained"
+                    variant="contained"
                     color={"success"}
                 >
                     Guardar Usuario
                 </Button>
             </Form>
-            <CreateAlert handleCloseCreate={handleCloseCreate}
-                        showCreateAlert={showCreateAlert} 
-                        severityResponse={severityResponse} 
-                        messageResponse={messageResponse} 
+            <AppAlert handleCloseAlert={handleCloseAlert}
+                showAlert={showAlert}
+                severityResponse={severityResponse}
+                messageResponse={messageResponse}
             />
         </Container>
 

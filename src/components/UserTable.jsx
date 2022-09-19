@@ -1,43 +1,50 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
-import { alpha } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-import TableSortLabel from '@mui/material/TableSortLabel';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
-import Checkbox from '@mui/material/Checkbox';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
+
+/*-- Matarials --*/
+import {
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TablePagination,
+  TableRow,
+  TableSortLabel,
+  Toolbar,
+  Typography,
+  Paper,
+  Checkbox,
+  IconButton,
+  Tooltip,
+  Button,
+  Container,
+  Stack
+} from '@mui/material'
+
+/*-- Icons --*/
 import DeleteIcon from '@mui/icons-material/Delete';
-import FilterListIcon from '@mui/icons-material/FilterList';
-import { visuallyHidden } from '@mui/utils';
-import GetPerson from "../services/GetPersons";
-import FirstPageIcon from '@mui/icons-material/FirstPage';
+import TableRowsOutlinedIcon from '@mui/icons-material/TableRowsOutlined';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import LastPageIcon from '@mui/icons-material/LastPage';
-import { useTheme } from '@mui/material/styles';
-import { Container } from '@mui/material';
-import { DeleteAlert } from "./AlertsApp"
-import {
-  Modal
-} from 'react-bootstrap';
-import Button from '@mui/material/Button';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+import LastPageIcon from '@mui/icons-material/LastPage';
+import FirstPageIcon from '@mui/icons-material/FirstPage';
+
+/*-- Styles --*/
+import { alpha, useTheme } from '@mui/material/styles';
+import { visuallyHidden } from '@mui/utils';
+
+
+import PropTypes from 'prop-types';
+import GetPerson from "../services/GetPersons";
+import { ModalsApp } from './ModalsApp';
 
 
 const EnhancedTableToolbar = (props) => {
 
   const { numSelected } = props;
-  const {showModalDelete} = props;
+  const { showModalDelete } = props;
 
   return (
     <Toolbar
@@ -71,56 +78,54 @@ const EnhancedTableToolbar = (props) => {
       )}
 
       {numSelected === 1 ? (
-        <Box sx={{ flexShrink: 0, ml: 2.5 }}>
-          <Tooltip title="Edit">
-              <Button
-                variant='contained'
-                endIcon={<ModeEditOutlineOutlinedIcon />}
-                sx={{
-                  my: 2, color: '#ffffff', bgcolor:'#333333', marginRight: '15px', ":hover": {
-                    color: '#ffffff', bgcolor: '#333333'
-                  }
-                }}
-              >
-                Editar
-              </Button>
-            </Tooltip>
-            <Tooltip title="Delete">
-              <Button
-                variant='contained'
-                endIcon={<DeleteIcon />}
-                color={'error'}
-                onClick={() => showModalDelete()}
-                sx={{
-                  my: 2, color: '#333333', bgcolor:'#ff1837', ":hover": {
-                    color: '#ffffff', bgcolor: '#ff1837'
-                  }
-                }}
-              >
-                Eliminar
-              </Button>
-            </Tooltip>
-        </Box>
-      ): numSelected > 1 ? (
-              <Tooltip title="Delete">
-                <Button
-                  variant='contained'
-                  endIcon={<DeleteIcon />}
-                  color={'error'}
-                  onClick={() => showModalDelete()}
-                  sx={{
-                    my: 2, color: '#333333', bgcolor:'#ff1837', ":hover": {
-                      color: '#ffffff', bgcolor: '#ff1837'
-                    }
-                  }}
-                >
-                Eliminar
-                </Button>
-              </Tooltip>
-      ): (
-        <Tooltip title="Filter list">
+        <Stack direction={"row"} spacing={2}>
+          <Tooltip title="Edit User">
+            <Button
+              variant='contained'
+              endIcon={<ModeEditOutlineOutlinedIcon />}
+              sx={{
+                color: '#ffffff', bgcolor: '#333333', ":hover": {
+                  color: '#ffffff', bgcolor: '#333333'
+                }
+              }}
+            >
+              Editar
+            </Button>
+          </Tooltip>
+          <Tooltip title="Delete User">
+            <Button
+              variant='contained'
+              endIcon={<DeleteIcon />}
+              onClick={() => showModalDelete()}
+              sx={{
+                color: '#333333', bgcolor: '#ff1837', ":hover": {
+                  color: '#ffffff', bgcolor: '#ff1837'
+                }
+              }}
+            >
+              Eliminar
+            </Button>
+          </Tooltip>
+        </Stack>
+      ) : numSelected > 1 ? (
+        <Tooltip title="Delete Users">
+          <Button
+            variant='contained'
+            endIcon={<DeleteIcon />}
+            onClick={() => showModalDelete()}
+            sx={{
+              color: '#333333', bgcolor: '#ff1837', ":hover": {
+                color: '#ffffff', bgcolor: '#ff1837'
+              }
+            }}
+          >
+            Eliminar
+          </Button>
+        </Tooltip>
+      ) : (
+        <Tooltip title="Tabla de usuarios">
           <IconButton>
-            <FilterListIcon />
+            <TableRowsOutlinedIcon />
           </IconButton>
         </Tooltip>
       )}
@@ -314,16 +319,16 @@ export default function UserTable() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [Users, setUser] = React.useState([]);
-  const [showDelete,setShowDelete] = React.useState(false);
-  
+  const [showDelete, setShowDelete] = React.useState(false);
+
 
   React.useEffect(() => {
     function updateTable() {
-         GetPerson().then((users) => setUser(users));
-     }
-     updateTable();
-  },[]);
-  
+      GetPerson().then((users) => setUser(users));
+    }
+    updateTable();
+  }, []);
+
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -375,16 +380,16 @@ export default function UserTable() {
 
   const handleShowDelete = () => setShowDelete(true);
   const handleCloseDelete = () => setShowDelete(false);
-  
+
   const showModalDelete = () => {
     handleShowDelete();
   };
 
 
-  return(
+  return (
     <Container fixed>
-      <Box sx={{width:'100%' }}>
-        <Paper sx={{width:'100%', mb:2 }}>
+      <Box sx={{ width: '100%' }}>
+        <Paper sx={{ width: '100%', mb: 2 }}>
           <EnhancedTableToolbar numSelected={selected.length} showModalDelete={showModalDelete} />
           <TableContainer>
             <Table
@@ -399,21 +404,21 @@ export default function UserTable() {
                 rowCount={Users.length}
               />
               <TableBody>
-                {stableSort(Users, getComparator(order,orderBy))
+                {stableSort(Users, getComparator(order, orderBy))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((user, index) => {
-                    const isItemSelected =  isSelected(user.id);
+                    const isItemSelected = isSelected(user.id);
                     const labelId = `enhanced-table-checkbox-${index}`;
 
                     return (
                       <TableRow
-                      hover
-                      onClick={(event) => handleClick(event, user.id)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={user.id}
-                      selected={isItemSelected}
+                        hover
+                        onClick={(event) => handleClick(event, user.id)}
+                        role="checkbox"
+                        aria-checked={isItemSelected}
+                        tabIndex={-1}
+                        key={user.id}
+                        selected={isItemSelected}
                       >
                         <TableCell padding='checkbox'>
                           <Checkbox
@@ -425,7 +430,7 @@ export default function UserTable() {
                           />
                         </TableCell>
                         <TableCell
-                          component= 'th'
+                          component='th'
                           id={labelId}
                           scope='row'
                           padding='none'
@@ -438,7 +443,7 @@ export default function UserTable() {
                       </TableRow>
                     );
                   })}
-                  {emptyRows > 0 && (
+                {emptyRows > 0 && (
                   <TableRow
                     style={{ height: 53 * emptyRows }}>
                     <TableCell colSpan={6} />
@@ -447,8 +452,8 @@ export default function UserTable() {
               </TableBody>
             </Table>
           </TableContainer>
-          <TablePagination 
-            rowsPerPageOptions= {[5, 10, { label: 'All', value: Users.length }]}
+          <TablePagination
+            rowsPerPageOptions={[5, 10, { label: 'All', value: Users.length }]}
             component='div'
             count={Users.length}
             rowsPerPage={rowsPerPage}
@@ -457,22 +462,19 @@ export default function UserTable() {
             onRowsPerPageChange={handleChangeRowsPerPage}
             ActionsComponent={TablePaginationActions}
           />
-          
         </Paper>
       </Box>
-      <Modal
-        show={showDelete}
-        onHide={handleCloseDelete}
-      >
-        <Modal.Header>
-          <Modal.Title>
-            Eliminación de usuario
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <DeleteAlert handleCloseDelete={handleCloseDelete} delete_id={selected} />
-        </Modal.Body> 
-      </Modal>
+      <ModalsApp
+        showDelete={showDelete}
+        handleCloseDelete={handleCloseDelete}
+        selected={selected}
+      />
+
+      {/* --TODO-- 
+      
+        Implementar el mensaje de eliminación
+
+      */} 
     </Container>
   );
 }

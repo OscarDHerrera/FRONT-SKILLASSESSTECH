@@ -12,23 +12,23 @@ import {
     Tooltip,
     MenuItem
 } from '@mui/material';
-import {Outlet} from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 export default function BarraNav() {
 
     const pages =
         [
-            {id: 1, name: 'Crear Usuario', url: '/create-user'},
-            {id: 2, name: 'Ver Usuarios', url: '/users-table'}
+            { id: 1, name: 'Crear Usuario', url: '/create-user' },
+            { id: 2, name: 'Ver Usuarios', url: '/users-table' }
         ]
 
     const settings =
         [
-            {id: 1, name: 'Profile', url: '/Profile'},
-            {id: 2, name: 'Account', url: '/Account'}
+            { id: 1, name: 'Profile', url: '/Profile' },
+            { id: 2, name: 'Account', url: '/Account' }
         ]
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -51,10 +51,10 @@ export default function BarraNav() {
 
     return (
         <main>
-            <AppBar sx={{bgcolor: '#ff1837'}} position={'static'} className="mb-3">
+            <AppBar sx={{ bgcolor: '#ff1837' }} position={'static'} className="mb-3">
                 <Container maxWidth={'xxl'}>
                     <Toolbar disableGutters>
-                        <AdbIcon sx={{display: {xs: 'none', md: 'flex'}, mr: 1}}/>
+                        <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
                         <Typography
                             variant="h6"
                             noWrap
@@ -62,7 +62,7 @@ export default function BarraNav() {
                             to={'/'}
                             sx={{
                                 mr: 2,
-                                display: {xs: 'none', md: 'flex'},
+                                display: { xs: 'none', md: 'flex' },
                                 fontFamily: 'monospace',
                                 fontWeight: 700,
                                 letterSpacing: '.3rem',
@@ -75,16 +75,16 @@ export default function BarraNav() {
                         >
                             Recruiter
                         </Typography>
-                        <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
+                        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                             <IconButton
                                 size="large"
                                 aria-label="account of current user"
                                 aria-controls="menu-appbar"
                                 aria-haspopup="true"
                                 onClick={handleOpenNavMenu}
-                                sx={{color: '#333333'}}
+                                sx={{ color: '#333333' }}
                             >
-                                <MenuIcon/>
+                                <MenuIcon />
                             </IconButton>
                             <Menu
                                 id="menu-appbar"
@@ -101,7 +101,7 @@ export default function BarraNav() {
                                 open={Boolean(anchorElNav)}
                                 onClose={handleCloseNavMenu}
                                 sx={{
-                                    display: {xs: 'block', md: 'none'},
+                                    display: { xs: 'block', md: 'none' },
                                 }}
                             >
                                 {pages.map((page) => (
@@ -124,7 +124,7 @@ export default function BarraNav() {
                                 ))}
                             </Menu>
                         </Box>
-                        <AdbIcon sx={{display: {xs: 'flex', md: 'none'}, mr: 1}}/>
+                        <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
                         <Typography
                             variant="h5"
                             noWrap
@@ -132,7 +132,7 @@ export default function BarraNav() {
                             to={'/'}
                             sx={{
                                 mr: 2,
-                                display: {xs: 'flex', md: 'none'},
+                                display: { xs: 'flex', md: 'none' },
                                 flexGrow: 1,
                                 fontFamily: 'monospace',
                                 fontWeight: 700,
@@ -146,7 +146,7 @@ export default function BarraNav() {
                         >
                             Recruiter
                         </Typography>
-                        <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
+                        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                             {pages.map((page) => (
                                 <Button
                                     component={Link}
@@ -165,14 +165,14 @@ export default function BarraNav() {
                             ))}
                         </Box>
 
-                        <Box sx={{flexGrow: 0}}>
+                        <Box sx={{ flexGrow: 0 }}>
                             <Tooltip title="Configuración de Cuenta">
-                                <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
-                                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg"/>
+                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
                                 </IconButton>
                             </Tooltip>
                             <Menu
-                                sx={{mt: '54px'}}
+                                sx={{ mt: '54px' }}
                                 id="menu-appbar"
                                 anchorEl={anchorElUser}
                                 anchorOrigin={{
@@ -213,7 +213,7 @@ export default function BarraNav() {
                 </Container>
             </AppBar>
             <section>
-                <Outlet/>
+                <Outlet />
             </section>
         </main>
     )
