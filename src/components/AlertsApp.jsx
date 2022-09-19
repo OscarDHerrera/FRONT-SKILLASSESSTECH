@@ -8,10 +8,14 @@ import Button from '@mui/material/Button';
 import MuiAlert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 
-export function DeleteAlert({ handleCloseDelete, toDeleteId }){
-    const deletePerson = (id) => {
+export function DeleteAlert({ handleCloseDelete, delete_id }){
+
+    const usersToDelete = {delete_id}
+ 
+    const deletePerson = () => {
+        console.log(usersToDelete)
         axios
-            .delete(`http://10.40.100.57:8000/user/delete-user/${id}`)
+            .post(`http://10.40.100.57:8000/user/delete-user`, usersToDelete)
             .then((response)=>{
                 console.log(response)
             })
@@ -19,7 +23,7 @@ export function DeleteAlert({ handleCloseDelete, toDeleteId }){
     };
 
     return (
-    <Form onSubmit={() => deletePerson(toDeleteId)}>
+    <Form> {/*onSubmit={() => deletePerson(toDeleteId)*/}
         <Form.Group>
             <Form.Text>
                 ¿Está seguro(a) de eliminar este usuario?
@@ -41,7 +45,7 @@ export function DeleteAlert({ handleCloseDelete, toDeleteId }){
                 Cancelar
             </Button>
             <Button
-            type="submit"
+            onClick={() => deletePerson()}
             variant= "contained"
             color={"warning"}
             >

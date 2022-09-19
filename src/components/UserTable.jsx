@@ -322,12 +322,6 @@ export default function UserTable() {
          GetPerson().then((users) => setUser(users));
      }
      updateTable();
-     const refreshInterval = setInterval(() => {
-         updateTable()
-     }, 10000);
-    return () => {
-        clearInterval(refreshInterval)
-     }
   },[]);
   
   const handleRequestSort = (event, property) => {
@@ -340,7 +334,6 @@ export default function UserTable() {
     if (event.target.checked) {
       const newSelected = Users.map((n) => n.id);
       setSelected(newSelected);
-      console.log('1',newSelected)
       return;
     }
     setSelected([]);
@@ -362,7 +355,6 @@ export default function UserTable() {
         selected.slice(selectedIndex + 1),
       );
     }
-    console.log('2', newSelected)
     setSelected(newSelected);
   };
 
@@ -387,6 +379,7 @@ export default function UserTable() {
   const showModalDelete = () => {
     handleShowDelete();
   };
+
 
   return(
     <Container fixed>
@@ -477,7 +470,7 @@ export default function UserTable() {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <DeleteAlert handleCloseDelete={handleCloseDelete} toDeleteId={selected} />
+          <DeleteAlert handleCloseDelete={handleCloseDelete} delete_id={selected} />
         </Modal.Body> 
       </Modal>
     </Container>
