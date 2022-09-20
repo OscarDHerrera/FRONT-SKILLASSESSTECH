@@ -37,7 +37,7 @@ import { visuallyHidden } from '@mui/utils';
 
 
 import PropTypes from 'prop-types';
-import GetPerson from "../services/GetPersons";
+import GetUser from "../services/GetUsers";
 import { ModalsApp } from './ModalsApp';
 
 
@@ -324,7 +324,7 @@ export default function UserTable() {
 
   React.useEffect(() => {
     function updateTable() {
-      GetPerson().then((users) => setUser(users));
+      GetUser().then((users) => setUser(users));
     }
     updateTable();
   }, []);
