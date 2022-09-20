@@ -1,7 +1,5 @@
 import React from 'react';
 import { Container } from '@mui/material'
-import { styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -35,25 +33,25 @@ const modules = [
   }
 ]
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
-
-
-const skeletonLoader = true
-
 export default function Home() {
+  const [skeleton, setSkeleton] = React.useState(true);
+  React.useEffect(() => {
+    function setTimer() {
+      setInterval(() => {
+        setSkeleton(false)
+
+      }, 2000)
+    }
+    setTimer();
+  }, []);
+
   return (
-    <Container fluid>
+    <Container>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           {modules.map((module, index) => (
-            <Grid  key={index} item xs={4}>
-              {skeletonLoader ? (
+            <Grid key={index} item xs={4}>
+              {skeleton ? (
                 <Stack spacing={1}>
                   {/* For variant="text", adjust the height via font-size */}
                   <Skeleton variant="text" width={270} sx={{ fontSize: '1rem' }} />
@@ -72,7 +70,7 @@ export default function Home() {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small">Learn More</Button>
+                    <Button size="small">Ingresar</Button>
                   </CardActions>
                 </Card>
               )}
