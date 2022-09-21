@@ -4,14 +4,12 @@ export default function GetCategories(){
     return fetch(apiUrl)
         .then((res) => res.json())
         .then((response) => {
-            console.log(response)
             const { message = [] } = response;
             if (Array.isArray(message)) {
                 const categories = message.map((user) => {
                     const { module_id,module_name, resume_module } = user;
                     return { module_id,module_name, resume_module };
                 });
-                console.log(categories)
                 return categories;
             }
         });

@@ -11,8 +11,8 @@ export default function App() {
       <div className="App">
         <BrowserRouter>
           <Routes>
-            <Route exact path='/' element={<BarraNav />}>
-              <Route exact path='/' element = {<Home />} />
+            <Route exact path='/' element={<BarraNav/>}>
+              <Route exact path='/' element = {<Home/>}/>
               <Route exact path='/create-user' element={<FormPerson/>} />
               <Route exact path='/users-table' element={<UserTable/>} />
             </Route>

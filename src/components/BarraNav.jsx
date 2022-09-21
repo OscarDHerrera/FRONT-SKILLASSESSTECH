@@ -51,7 +51,7 @@ export default function BarraNav() {
 
     return (
         <main>
-            <AppBar sx={{ bgcolor: '#ff1837' }} position={'static'} className="mb-3">
+            <AppBar sx={{ bgcolor: '#ff1837' }} position={'sticky'} className="mb-3">
                 <Container maxWidth={'xxl'}>
                     <Toolbar disableGutters>
                         <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
