@@ -1,19 +1,20 @@
-import React, { useState } from 'react';
-import { Container } from 'react-bootstrap';
+import React from 'react';
 import {
     Form
 } from 'react-bootstrap';
-import axios from 'axios';
-import { AppAlert } from "./AlertsApp";
+
 import {
-    Button, TextField
+    Button,
+    TextField,
+    Container
 } from '@mui/material';
 
-
+import axios from 'axios';
+import { AppAlert } from "./AlertsApp";
 
 export default function FormPerson() {
 
-    const [newPerson, setNewPerson] = useState({
+    const [newPerson, setNewPerson] = React.useState({
         role: "",
         email: "",
         name: "",
@@ -21,9 +22,9 @@ export default function FormPerson() {
         password: "",
     });
 
-    const [severityResponse, setSeverityResponse] = useState("")
-    const [messageResponse, setMessageResponse] = useState("")
-    const [showAlert, setShowAlert] = useState(false)
+    const [severityResponse, setSeverityResponse] = React.useState("")
+    const [messageResponse, setMessageResponse] = React.useState("")
+    const [showAlert, setShowAlert] = React.useState(false)
 
     const handleChangeEmail = (e) => {
         setNewPerson({
@@ -74,11 +75,11 @@ export default function FormPerson() {
                     setMessageResponse(responseStatus.data.message)
                     setNewPerson({
                         ...newPerson,
-                        role:"",
+                        role: "",
                         email: "",
-                        name:"",
-                        last_name:"",
-                        password:""
+                        name: "",
+                        last_name: "",
+                        password: ""
                     })
                     handleShowAlert();
                 }

@@ -1,5 +1,5 @@
 
-export default function GetUsers(){
+export default function GetUsers() {
     const apiUrl = 'http://10.40.100.57:8000/user/see_users';
 
     return fetch(apiUrl)
@@ -8,8 +8,8 @@ export default function GetUsers(){
             const { data = [] } = response;
             if (Array.isArray(data)) {
                 const users = data.map((user) => {
-                    const { id,email, name, last_name, role } = user;
-                    return { id,email, name, last_name, role };
+                    const { id, email, name, last_name, role } = user;
+                    return { id, email, name, last_name, role };
                 });
                 return users;
             }

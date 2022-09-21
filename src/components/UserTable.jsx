@@ -396,9 +396,9 @@ export default function UserTable() {
 
   const refresh = () => {
     if (refreshPage === true) {
-      setInterval(()=>{
+      setInterval(() => {
         window.location.reload();
-      },2000)
+      }, 2000)
     }
   }
   refresh();

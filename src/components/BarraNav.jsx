@@ -12,10 +12,12 @@ import {
     Tooltip,
     MenuItem
 } from '@mui/material';
-import { Outlet } from 'react-router-dom';
+
 import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
+
 import { Link } from 'react-router-dom'
+import { Outlet } from 'react-router-dom';
 
 export default function BarraNav() {
 
