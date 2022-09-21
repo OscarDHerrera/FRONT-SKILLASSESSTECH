@@ -1,7 +1,7 @@
 import { Modal } from 'react-bootstrap';
 import { DeleteAlert } from "./AlertsApp"
 
-export function ModalsApp({ showDelete, handleCloseDelete, selected }) {
+export function ModalsApp({ showDelete, handleCloseDelete, selected, setSeverityResponse, setMessageResponse, handleShowAlert }) {
 
     return (
         <Modal
@@ -14,7 +14,12 @@ export function ModalsApp({ showDelete, handleCloseDelete, selected }) {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <DeleteAlert handleCloseDelete={handleCloseDelete} delete_id={selected} />
+                <DeleteAlert handleCloseDelete={handleCloseDelete}
+                    delete_id={selected}
+                    setSeverityResponse={setSeverityResponse}
+                    setMessageResponse={setMessageResponse}
+                    handleShowAlert={handleShowAlert}
+                />
             </Modal.Body>
         </Modal>
     )

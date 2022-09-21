@@ -14,11 +14,11 @@ import {
 export default function FormPerson() {
 
     const [newPerson, setNewPerson] = useState({
-        email: '',
-        name: '',
-        last_name: '',
-        password: '',
-        role: ''
+        role: "",
+        email: "",
+        name: "",
+        last_name: "",
+        password: "",
     });
 
     const [severityResponse, setSeverityResponse] = useState("")
@@ -72,6 +72,14 @@ export default function FormPerson() {
                 if (responseStatus.status === 201) {
                     setSeverityResponse("success")
                     setMessageResponse(responseStatus.data.message)
+                    setNewPerson({
+                        ...newPerson,
+                        role:"",
+                        email: "",
+                        name:"",
+                        last_name:"",
+                        password:""
+                    })
                     handleShowAlert();
                 }
             })
@@ -94,6 +102,7 @@ export default function FormPerson() {
                     label="Rol del usuario"
                     variant="standard"
                     helperText="Ingresa el Rol que tendrá el usuario"
+                    value={newPerson.role}
                     onChange={handleChangeRole}
                 />
 
@@ -104,6 +113,7 @@ export default function FormPerson() {
                     label="Email"
                     variant="standard"
                     helperText="Ingresa tu Email"
+                    value={newPerson.email}
                     onChange={handleChangeEmail}
                 />
 
@@ -114,6 +124,7 @@ export default function FormPerson() {
                     label="Nombre"
                     variant="standard"
                     helperText="Ingresa tu Nombre"
+                    value={newPerson.name}
                     onChange={handleChangeName}
                 />
 
@@ -125,6 +136,7 @@ export default function FormPerson() {
                     label="Apellido"
                     variant="standard"
                     helperText="Ingresa tu Apellido"
+                    value={newPerson.last_name}
                     onChange={handleChangeLastName}
                 />
 
@@ -138,6 +150,7 @@ export default function FormPerson() {
                     type={"password"}
                     helperText="Ingresa la contraseña que el 
                                 usuario utilizará para ingresar al aplicativo"
+                    value={newPerson.password}
                     onChange={handleChangePassword}
                 />
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-    Form
+    Form, Modal
 } from "react-bootstrap";
 import axios from 'axios';
 import { Snackbar, Button, Stack, Container } from '@mui/material';
@@ -33,34 +33,26 @@ export function AppAlert({ showAlert, handleCloseAlert, severityResponse, messag
 
 
 /* -- Alerta de eliminación usurario -- */
-export function DeleteAlert({ handleCloseDelete, delete_id }) {
+export function DeleteAlert({ showDelete, handleCloseDelete, delete_id, setSeverityResponse, setMessageResponse, handleShowAlert, handleRefreshPage }) {
 
     const usersToDelete = { delete_id }
-
-    const [severityResponse, setSeverityResponse] = React.useState("")
-    const [messageResponse, setMessageResponse] = React.useState("")
-    const [showAlert, setShowAlert] = React.useState(false)
-
-    const handleShowAlert = () => setShowAlert(true);
-    const handleCloseAlert = () => setShowAlert(false);
-
-
-    const deletePerson = () => {
-        console.log(usersToDelete)
+    const deletePerson = (e) => {
+        e.preventDefault()
         axios
             .post(`http://10.40.100.57:8000/user/delete-user`, usersToDelete)
-            .then((response) => {
-                if (response.data.code === 200) {
+            .then((res) => {
+                const responseStatus = res
+                if (responseStatus.status === 200) {
                     setSeverityResponse("success")
-                    setMessageResponse(response.data.message)
+                    setMessageResponse(responseStatus.data.message)
+                    handleRefreshPage();
                     handleShowAlert();
                 }
-
             })
             .catch((error) => {
-                console.log(error.response.data.message)
                 setSeverityResponse("error")
                 setMessageResponse(error.response.data.message)
+                handleRefreshPage();
                 handleShowAlert();
             })
         handleCloseDelete();
@@ -68,44 +60,56 @@ export function DeleteAlert({ handleCloseDelete, delete_id }) {
 
     return (
         <Container>
-            <Form>
-                <Form.Group>
-                    <Form.Text>
-                        ¿Está seguro(a) de eliminar este usuario?
-                    </Form.Text>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Text>
-                        Al aceptar, éste usuario se eliminará
-                        por completo de la Base de Datos y
-                        no podrás recuperarlo
-                    </Form.Text>
-                </Form.Group>
-                <Stack direction={"row"} spacing={2} mt={2} >
-                    <Button
-                        onClick={handleCloseDelete}
-                        variant="contained"
-                        sx={{
-                            color: '#ffffff', bgcolor: '#333333', ":hover": {
-                                color: '#ffffff', bgcolor: '#333333'
-                            }
-                        }}
-                    >
-                        Cancelar
-                    </Button>
-                    <Button
-                        onClick={() => deletePerson()}
-                        variant="contained"
-                        sx={{
-                            color: '#333333', bgcolor: '#ff1837', ":hover": {
-                                color: '#ffffff', bgcolor: '#ff1837'
-                            }
-                        }}
-                    >
-                        Aceptar
-                    </Button>
-                </Stack>
-            </Form>
+            <Modal
+                show={showDelete}
+                onHide={handleCloseDelete}
+            >
+                <Modal.Header>
+                    <Modal.Title>
+                        Eliminación de usuario
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form onSubmit={deletePerson}>
+                        <Form.Group>
+                            <Form.Text>
+                                ¿Está seguro(a) de eliminar este usuario?
+                            </Form.Text>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Text>
+                                Al aceptar, éste usuario se eliminará
+                                por completo de la Base de Datos y
+                                no podrás recuperarlo
+                            </Form.Text>
+                        </Form.Group>
+                        <Stack direction={"row"} spacing={2} mt={2} >
+                            <Button
+                                onClick={handleCloseDelete}
+                                variant="contained"
+                                sx={{
+                                    color: '#ffffff', bgcolor: '#333333', ":hover": {
+                                        color: '#ffffff', bgcolor: '#333333'
+                                    }
+                                }}
+                            >
+                                Cancelar
+                            </Button>
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                sx={{
+                                    color: '#333333', bgcolor: '#ff1837', ":hover": {
+                                        color: '#ffffff', bgcolor: '#ff1837'
+                                    }
+                                }}
+                            >
+                                Aceptar
+                            </Button>
+                        </Stack>
+                    </Form>
+                </Modal.Body>
+            </Modal>
         </Container>
     );
 }

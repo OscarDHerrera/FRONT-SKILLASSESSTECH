@@ -20,7 +20,7 @@ import {
   Button,
   Container,
   Stack
-} from '@mui/material'
+} from '@mui/material';
 
 /*-- Icons --*/
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -37,8 +37,9 @@ import { visuallyHidden } from '@mui/utils';
 
 
 import PropTypes from 'prop-types';
-import GetPerson from "../services/GetPersons";
-import { ModalsApp } from './ModalsApp';
+import GetUsers from "../services/GetUsers";
+import { AppAlert } from './AlertsApp';
+import { DeleteAlert } from './AlertsApp';
 
 
 const EnhancedTableToolbar = (props) => {
@@ -320,14 +321,22 @@ export default function UserTable() {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [Users, setUser] = React.useState([]);
   const [showDelete, setShowDelete] = React.useState(false);
+  const [severityResponse, setSeverityResponse] = React.useState("")
+  const [messageResponse, setMessageResponse] = React.useState("")
+  const [showAlert, setShowAlert] = React.useState(false)
+  const handleShowAlert = () => setShowAlert(true);
+  const handleCloseAlert = () => setShowAlert(false);
+  const [refreshPage, setRefresh] = React.useState(false)
+  const handleRefreshPage = () => setRefresh(true)
 
 
   React.useEffect(() => {
-    function updateTable() {
-      GetPerson().then((users) => setUser(users));
+    const updateTable = () => {
+      GetUsers().then((users) => setUser(users));
     }
     updateTable();
   }, []);
+
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -385,6 +394,14 @@ export default function UserTable() {
     handleShowDelete();
   };
 
+  const refresh = () => {
+    if (refreshPage === true) {
+      setInterval(()=>{
+        window.location.reload();
+      },2000)
+    }
+  }
+  refresh();
 
   return (
     <Container fixed>
@@ -464,17 +481,23 @@ export default function UserTable() {
           />
         </Paper>
       </Box>
-      <ModalsApp
+      <DeleteAlert
         showDelete={showDelete}
         handleCloseDelete={handleCloseDelete}
-        selected={selected}
+        delete_id={selected}
+        setSeverityResponse={setSeverityResponse}
+        setMessageResponse={setMessageResponse}
+        handleShowAlert={handleShowAlert}
+        handleRefreshPage={handleRefreshPage}
       />
 
-      {/* --TODO-- 
-      
-        Implementar el mensaje de eliminación
+      <AppAlert
+        handleCloseAlert={handleCloseAlert}
+        showAlert={showAlert}
+        severityResponse={severityResponse}
+        messageResponse={messageResponse}
+      />
 
-      */} 
     </Container>
   );
 }
