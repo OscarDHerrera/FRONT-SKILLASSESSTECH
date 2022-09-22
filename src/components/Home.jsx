@@ -6,16 +6,22 @@ import {
   Card,
   CardActions,
   CardContent,
-  Button,
   Typography,
   Skeleton,
-  Stack
+  Stack,
+  Chip,
+  CardActionArea
 } from '@mui/material'
 import GetCategories from '../services/GetCategories'
+import { Link } from 'react-router-dom'
+
+
+
 
 
 export default function Home() {
 
+  const MyComponent = (props) => <h2>{props.label}</h2>
   const [categories, setCategories] = React.useState([]);
   React.useEffect(() => {
     function setTimer() {
@@ -26,14 +32,15 @@ export default function Home() {
 
   return (
     <Container fixed>
+      <MyComponent label="Please select category..." />
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={{ xs: 2, md: 2 }} columns={{ xs: 2, sm: 2, md: 12 }}>
           {(categories.length === 0 ? Array.from(new Array(4)) : categories).map((item, index) => (
             <Grid item key={index} xs={3} sm={4} md={4}>
               {
                 item ? (
-                  <Card>
-                    <Card>
+                  <CardActionArea component={Link} to='/select-items'>
+                    <Card elevation={4} style={{ backgroundColor: '#F9F9F9' }}>
                       <CardContent>
                         <Typography variant="h6" color="text.primary">
                           {item.module_name}
@@ -43,10 +50,10 @@ export default function Home() {
                         </Typography>
                       </CardContent>
                       <CardActions>
-                        <Button size="small">Ingresar</Button>
+                        <Chip label="4 questions" />
                       </CardActions>
                     </Card>
-                  </Card>
+                  </CardActionArea>
                 ) : (
                   <Stack spacing={3}>
                     <Skeleton variant="text" width={270} sx={{ fontSize: '1rem' }} />
