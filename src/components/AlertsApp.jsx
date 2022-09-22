@@ -41,19 +41,23 @@ export function AppAlert({ showAlert, handleCloseAlert, severityResponse, messag
 
 /* -- Alerta de eliminación usurario -- */
 
-function PaperComponent(props) {
-    return (
-        <Draggable
-            handle="#draggable-dialog-title"
-            cancel={'[class*="MuiDialogContent-root"]'}
-        >
-            <Paper {...props} />
-        </Draggable>
-    );
-}
 
 export function DeleteAlert({ showDelete, handleCloseDelete, delete_id, setSeverityResponse, setMessageResponse, handleShowAlert, handleRefreshPage }) {
     const usersToDelete = { delete_id }
+    const nodeRef = React.useRef(null)
+
+    function PaperComponent(props) {
+        return (
+            <Draggable
+                handle="#draggable-dialog-title"
+                cancel={'[class*="MuiDialogContent-root"]'}
+                nodeRef={nodeRef}
+            >
+                <Paper {...props} />
+            </Draggable>
+        );
+    }
+
     const deletePerson = () => {
         axios
             .post(`http://10.40.100.57:8000/user/delete-user`, usersToDelete)
@@ -74,6 +78,7 @@ export function DeleteAlert({ showDelete, handleCloseDelete, delete_id, setSever
             })
         handleCloseDelete();
     };
+
     return (
         <Container fixed>
             <Dialog
@@ -81,8 +86,9 @@ export function DeleteAlert({ showDelete, handleCloseDelete, delete_id, setSever
                 onClose={handleCloseDelete}
                 PaperComponent={PaperComponent}
                 aria-labelledby="draggable-dialog-title"
+                ref={nodeRef}
             >
-                <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
+                <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title" ref={nodeRef}>
                     Eliminación de Usuario(s)
                 </DialogTitle>
                 <Divider sx={{ bgcolor: 'black' }} variant="middle" />
