@@ -58,14 +58,23 @@ const EnhancedTableToolbar = (props) => {
         }),
       }}
     >
-      {numSelected > 0 ? (
+      {numSelected > 1 ? (
         <Typography
           sx={{ flex: '1 1 100%' }}
           color="inherit"
           variant="subtitle1"
           component="div"
         >
-          {numSelected} usuario(s) seleccionado(s)
+          {numSelected} usuarios seleccionados
+        </Typography>
+      ) : numSelected === 1 ? (
+        <Typography
+          sx={{ flex: '1 1 100%' }}
+          color="inherit"
+          variant="subtitle1"
+          component="div"
+        >
+          {numSelected} usuario seleccionado
         </Typography>
       ) : (
         <Typography
@@ -79,7 +88,10 @@ const EnhancedTableToolbar = (props) => {
       )}
 
       {numSelected === 1 ? (
-        <Stack direction={"row"} spacing={2}>
+        <Stack
+          direction="row"
+          spacing={0.5}
+        >
           <Tooltip title="Edit User">
             <Button
               variant='contained'
@@ -319,13 +331,20 @@ export default function UserTable() {
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
   const [Users, setUser] = React.useState([]);
+
   const [showDelete, setShowDelete] = React.useState(false);
+  const handleShowDelete = () => setShowDelete(true);
+  const handleCloseDelete = () => setShowDelete(false);
+
   const [severityResponse, setSeverityResponse] = React.useState("")
   const [messageResponse, setMessageResponse] = React.useState("")
+
   const [showAlert, setShowAlert] = React.useState(false)
   const handleShowAlert = () => setShowAlert(true);
   const handleCloseAlert = () => setShowAlert(false);
+
   const [refreshPage, setRefresh] = React.useState(false)
   const handleRefreshPage = () => setRefresh(true)
 
@@ -387,13 +406,6 @@ export default function UserTable() {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - Users.length) : 0;
 
 
-  const handleShowDelete = () => setShowDelete(true);
-  const handleCloseDelete = () => setShowDelete(false);
-
-  const showModalDelete = () => {
-    handleShowDelete();
-  };
-
   const refresh = () => {
     if (refreshPage === true) {
       setInterval(() => {
@@ -407,7 +419,7 @@ export default function UserTable() {
     <Container fixed>
       <Box sx={{ width: '100%' }}>
         <Paper sx={{ width: '100%', mb: 2 }}>
-          <EnhancedTableToolbar numSelected={selected.length} showModalDelete={showModalDelete} />
+          <EnhancedTableToolbar numSelected={selected.length} showModalDelete={handleShowDelete} />
           <TableContainer>
             <Table
               aria-labelledby="tableTitle"
@@ -490,7 +502,6 @@ export default function UserTable() {
         handleShowAlert={handleShowAlert}
         handleRefreshPage={handleRefreshPage}
       />
-
       <AppAlert
         handleCloseAlert={handleCloseAlert}
         showAlert={showAlert}
