@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 
 import axios from 'axios';
-import { AppAlert } from "./AlertsApp";
+import { AppAlert } from "../../commons/AppAlert";
 
 export default function FormPerson() {
 

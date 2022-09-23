@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from './components/Home';
-import BarraNav from './components/BarraNav';
-import FormPerson from './components/FormPerson';
-import UserTable from './components/UserTable';
-import Questions from './components/Questions';
+import BarraNav from './layouts/BarraNav';
+import Home from './components/home/Home';
+import FormPerson from './components/users/FormPerson';
+import UserTable from './components/users/UserTable';
+import Questions from './components/home/Questions';
 
 
 export default function App() {

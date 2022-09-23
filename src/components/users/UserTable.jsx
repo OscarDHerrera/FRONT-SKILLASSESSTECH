@@ -37,9 +37,9 @@ import { visuallyHidden } from '@mui/utils';
 
 
 import PropTypes from 'prop-types';
-import GetUsers from "../services/GetUsers";
-import { AppAlert } from './AlertsApp';
-import { DeleteAlert } from './AlertsApp';
+import GetUsers from "./ServiceUser";
+import { AppAlert } from "../../commons/AppAlert";
+import { DeleteAlert } from './ModalsUser';
 
 
 const EnhancedTableToolbar = (props) => {

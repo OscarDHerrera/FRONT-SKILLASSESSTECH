@@ -12,12 +12,8 @@ import {
   Chip,
   CardActionArea
 } from '@mui/material'
-import GetCategories from '../services/GetCategories'
+import GetCategories from './ServiceHome'
 import { Link } from 'react-router-dom'
-
-
-
-
 
 export default function Home() {
 
@@ -33,14 +29,14 @@ export default function Home() {
   return (
     <Container fixed>
       <MyComponent label="Please select category..." />
-      <Box sx={{ flexGrow: 1 }}>
+      <Box sx={{ flexGrow: 1, my:2 }}>
         <Grid container spacing={{ xs: 2, md: 2 }} columns={{ xs: 2, sm: 2, md: 12 }}>
           {(categories.length === 0 ? Array.from(new Array(4)) : categories).map((item, index) => (
             <Grid item key={index} xs={3} sm={4} md={4}>
               {
                 item ? (
                   <CardActionArea component={Link} to='/select-items'>
-                    <Card elevation={4} style={{ backgroundColor: '#F9F9F9' }}>
+                    <Card elevation={4} sx={{ backgroundColor: '#F9F9F9' }}>
                       <CardContent>
                         <Typography variant="h6" color="text.primary">
                           {item.module_name}

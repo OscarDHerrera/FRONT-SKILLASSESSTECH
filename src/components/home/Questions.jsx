@@ -51,9 +51,10 @@ export default function Questions() {
               key={index}
               elevation={3}
               sx={{
-                my: 1,
+                my: 2.7,
                 mx: 'auto',
                 p: 2,
+                bgcolor:'#F9F9F9'
               }}
             >
               <Grid item key={index} xs={3} sm={4} md={4}>
