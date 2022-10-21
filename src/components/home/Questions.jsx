@@ -5,8 +5,11 @@ import {
   Grid,
   Typography,
   Paper,
-  Switch
+  Switch,
+  Skeleton
 } from '@mui/material'
+
+import { GetQuestions } from './service/ServiceHome'
 
 const GreenSwitch = styled(Switch)(({ theme }) => ({
   '& .MuiSwitch-switchBase.Mui-checked': {
@@ -20,48 +23,49 @@ const GreenSwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
-const myQuestions = [
-  {
-    "id": 1,
-    "question": "¿Si tuvieras mucho dinero: lo ahorrarías o lo gastarías?"
-  },
-  {
-    "id": 2,
-    "question": "¿Tocas algún instrumento?"
-  },
-  {
-    "id": 3,
-    "question": "¿Te irías a vivir a otro país?"
-  },
-  {
-    "id": 4,
-    "question": "¿Qué te da más miedo: aliens o fantasmas?"
-  }
-]
 
 const label = { inputProps: { 'aria-label': 'Switch demo' } };
 export default function Questions() {
 
+  const [questions, setQuestions] = React.useState([])
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      GetQuestions().then((questions) => { setQuestions(questions) })
+    }, 2000);
+  }, [])
+
   return (
     <Container fixed>
-      <Grid spacing={{ xs: 2, md: 2 }} columns={{ xs: 2, sm: 2, md: 12 }}>
-        {
-          myQuestions.map((item, index) => (
-            <Paper
-              key={index}
-              elevation={3}
-              sx={{
-                my: 2.7,
-                mx: 'auto',
-                p: 2,
-                bgcolor:'#F9F9F9'
-              }}
-            >
+      <Grid sx={{ xs: 2, md: 2 }} columns={{ xs: 2, sm: 2, md: 12 }}>
+        {(questions.length === 0 ? Array.from(new Array(6)) : questions).map((item, index) => (
+          <Paper
+            key={index}
+            elevation={3}
+            sx={{
+              my: 2.7,
+              mx: 'auto',
+              p: 2,
+              bgcolor: '#F9F9F9'
+            }}
+          >
+            {item ? (
               <Grid item key={index} xs={3} sm={4} md={4}>
-                <Typography><GreenSwitch {...label} /> {item.question}</Typography>
+                <Typography>
+                  <GreenSwitch {...label} />
+                  {item.question}
+                </Typography>
               </Grid>
-            </Paper>
-          ))}
+            ) : (
+              <Grid item key={index} xs={3} sm={4} md={4}>
+                <Typography>
+                  <Skeleton animation="wave" />
+                </Typography>
+              </Grid>
+            )
+            }
+          </Paper>
+        ))}
       </Grid>
     </Container>
   )

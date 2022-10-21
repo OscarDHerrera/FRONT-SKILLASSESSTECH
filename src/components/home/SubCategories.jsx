@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react"
+import { useParams } from "react-router-dom"
 import {
   Container,
   Grid,
@@ -9,53 +10,47 @@ import {
   Typography,
   Skeleton,
   Chip,
-  CardActionArea,
-  Divider
+  CardActionArea
 } from '@mui/material'
-import { GetCategories } from './service/ServiceHome'
 import { Link } from 'react-router-dom'
+import { GetSubCategories } from './service/ServiceHome'
 
-export default function Home() {
 
+export default function SubCategories() {
+
+  const [subcategories, setSubcategories] = React.useState([])
   const MyComponent = (props) => <h2>{props.label}</h2>
-  const [categories, setCategories] = React.useState([]);
+  let module_name = useParams()
 
-  React.useEffect(
-    () => {
-      setTimeout(() => {
-        GetCategories().then((categories) => { setCategories(categories) })
-      }, 2000);
-    }, []);
+  React.useEffect(() => {
+    setTimeout(() => {
+      GetSubCategories().then((subcategories) => { setSubcategories(subcategories) })
+    }, 2000);
+  }, []);
 
   return (
     <Container fixed>
-      <MyComponent label="Please select category..." />
+      <MyComponent label="Please select SubCategorie..." />
       <Box sx={{ flexGrow: 1, my: 2 }}>
         <Grid container spacing={{ xs: 2, md: 2 }} columns={{ xs: 2, sm: 2, md: 12 }}>
-          {(categories.length === 0 ? Array.from(new Array(6)) : categories).map((item, index) => (
+          {(subcategories.length === 0 ? Array.from(new Array(6)) : subcategories).map((item, index) => (
             <Grid item key={index} xs={3} sm={4} md={4}>
               {
                 item ? (
                   <CardActionArea component={Link} to={{
-                    pathname: `/subcategories/${item.module_link}`
+                    pathname: `/subcategories/questions/${item.questions_link}`
                   }} >
                     <Card elevation={4} sx={{ backgroundColor: '#F9F9F9' }}>
                       <CardContent>
-                        <Typography
-                          variant="h6"
-                          color="text.primary">
-                          {item.module_name}
+                        <Typography variant="h6" color="text.primary">
+                          {item.id}
                         </Typography>
-                        <Divider sx={{ bgcolor: 'black' }} />
-                        <Typography
-                          variant="subtitle1"
-                          color="text.secondary"
-                          component="div">
-                          {item.resume_module}
+                        <Typography variant="subtitle1" color="text.secondary" component="div">
+                          {item.subcategorie}
                         </Typography>
                       </CardContent>
                       <CardActions>
-                        <Chip label={"4 subcategories"} />
+                        <Chip label={`${item.subcategorie.length} questions`} />
                       </CardActions>
                     </Card>
                   </CardActionArea>
@@ -89,3 +84,4 @@ export default function Home() {
     </Container>
   )
 }
+
