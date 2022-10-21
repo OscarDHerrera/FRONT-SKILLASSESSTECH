@@ -37,15 +37,16 @@ import { visuallyHidden } from '@mui/utils';
 
 
 import PropTypes from 'prop-types';
-import GetUsers from "./ServiceUser";
+import { GetUsers } from "./service/ServiceUser";
 import { AppAlert } from "../../commons/AppAlert";
-import { DeleteAlert } from './ModalsUser';
+import { DeleteUser, EditUser } from './ModalsUser';
 
 
 const EnhancedTableToolbar = (props) => {
 
   const { numSelected } = props;
   const { showModalDelete } = props;
+  const { showModalUpdate } = props;
 
   return (
     <Toolbar
@@ -96,6 +97,7 @@ const EnhancedTableToolbar = (props) => {
             <Button
               variant='contained'
               endIcon={<ModeEditOutlineOutlinedIcon />}
+              onClick={() => showModalUpdate()}
               sx={{
                 color: '#ffffff', bgcolor: '#333333', ":hover": {
                   color: '#ffffff', bgcolor: '#333333'
@@ -334,6 +336,10 @@ export default function UserTable() {
 
   const [Users, setUser] = React.useState([]);
 
+  const [showUpdate, setShowUpdate] = React.useState(false);
+  const handleShowUpdate = () => setShowUpdate(true);
+  const handleCloseUpdate = () => setShowUpdate(false);
+
   const [showDelete, setShowDelete] = React.useState(false);
   const handleShowDelete = () => setShowDelete(true);
   const handleCloseDelete = () => setShowDelete(false);
@@ -350,10 +356,7 @@ export default function UserTable() {
 
 
   React.useEffect(() => {
-    const updateTable = () => {
-      GetUsers().then((users) => setUser(users));
-    }
-    updateTable();
+    GetUsers().then((users) => setUser(users));
   }, []);
 
 
@@ -408,9 +411,9 @@ export default function UserTable() {
 
   const refresh = () => {
     if (refreshPage === true) {
-      setInterval(() => {
+      setTimeout(() => {
         window.location.reload();
-      }, 2000)
+      }, 2000);
     }
   }
   refresh();
@@ -419,7 +422,7 @@ export default function UserTable() {
     <Container fixed>
       <Box sx={{ width: '100%' }}>
         <Paper sx={{ width: '100%', mb: 2 }}>
-          <EnhancedTableToolbar numSelected={selected.length} showModalDelete={handleShowDelete} />
+          <EnhancedTableToolbar numSelected={selected.length} showModalDelete={handleShowDelete} showModalUpdate={handleShowUpdate} />
           <TableContainer>
             <Table
               aria-labelledby="tableTitle"
@@ -493,7 +496,7 @@ export default function UserTable() {
           />
         </Paper>
       </Box>
-      <DeleteAlert
+      <DeleteUser
         showDelete={showDelete}
         handleCloseDelete={handleCloseDelete}
         delete_id={selected}
@@ -508,7 +511,15 @@ export default function UserTable() {
         severityResponse={severityResponse}
         messageResponse={messageResponse}
       />
-
+      <EditUser
+        showUpdate={showUpdate}
+        update_id={selected}
+        handleCloseUpdate={handleCloseUpdate}
+        setSeverityResponse={setSeverityResponse}
+        setMessageResponse={setMessageResponse}
+        handleShowAlert={handleShowAlert}
+        handleRefreshPage={handleRefreshPage}
+      />
     </Container>
   );
 }
