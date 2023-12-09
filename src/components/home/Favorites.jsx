@@ -14,16 +14,13 @@ import {
 } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { GetSubCategories } from './service/ServiceHome'
-import FavoriteIcon from '@mui/icons-material/Favorite'
 import Checkbox from '@mui/material/Checkbox';
-import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
-import Favorite from '@mui/icons-material/Favorite';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 
 
 
-export default function SubCategories() {
+export default function Favorites() {
 
   const [subcategories, setSubcategories] = React.useState([])
   const MyComponent = (props) => <h2>{props.label}</h2>

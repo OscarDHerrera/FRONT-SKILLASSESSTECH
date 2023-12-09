@@ -70,7 +70,6 @@ export default function BarraNav() {
   }
 
   const skillassesstechTypographyStyle = {
-    fontFamily: 'Fira Code',
     fontWeight: 'bold',
     textDecoration: 'none',
     cursor: "pointer",
@@ -228,6 +227,23 @@ export default function BarraNav() {
                 >
                   {optionList}
                 </Drawer>
+                
+                <Drawer
+                  variant="temporary"
+                  open={openNav}
+                  onClose={handleDrawerToggle}
+                  ModalProps={{
+                    keepMounted: true,
+                  }}
+                  sx={{
+                    display: { xs: 'none', sm: 'block' },
+                    '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                  }}
+
+                >
+                  {optionList}
+                </Drawer>
+
               </Box>
             </Box>
 
