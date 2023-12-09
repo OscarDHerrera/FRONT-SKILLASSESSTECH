@@ -1,5 +1,5 @@
 export function GetPages() {
-  return fetch('https://mocki.io/v1/1b4791c7-bab0-45ba-9a6d-eaa38931218e')
+  return fetch('https://mocki.io/v1/ddb920bf-98f4-4ed2-ae87-f888103f3c3d')
     .then((response) => response.json())
     .then((res) => {
       const { data = [] } = res;
@@ -14,7 +14,7 @@ export function GetPages() {
 }
 
 export function GetSettings() {
-  return fetch('https://mocki.io/v1/dba2afcf-7051-462c-9a12-4780509f8c18')
+  return fetch('https://mocki.io/v1/66d2a92d-88d2-4516-82dd-66c264cba45b')
     .then((response) => response.json())
     .then((res) => {
       const { data = [] } = res;
