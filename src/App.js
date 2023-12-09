@@ -35,7 +35,7 @@ export default function App() {
             <Route exact path='/login' element={<Login />} />
             <Route exact path='/subcategories/:sub_name' element={<SubCategories />} />
             <Route exact path='/subcategories/questions/:sub_name' element={<Questions />} />
-            <Route exact path='/user-favorites' element={<FormPerson />} />
+            <Route exact path='/user-favorites' element={<SubCategories />} />
             <Route exact path='/user-results' element={<UserTable />} />
           </Routes>
       </BrowserRouter>
