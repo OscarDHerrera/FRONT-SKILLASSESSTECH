@@ -27,21 +27,28 @@ export default function Favorites() {
   let module_name = useParams()
   let vacants={
     data: {
-      name:  "XYZ Tech Solutions",
-      description: "XYZ Tech Solutions, una empresa líder en innovación tecnológica, \
-                    está en busca de un Desarrollador de Software Senior altamente \
-                    capacitado para unirse a nuestro talentoso equipo en la sede de Ciudad ABC"
+      name:  "Lorem Ipsum",
+      description: "consectetur adipiscing elit. Donec id tortor at ex faucibus porta. \
+      Donec blandit mattis libero, et tempus nisl rhoncus sit amet. Maecenas vitae imperdiet quam, dapibus ultrices est. \
+      Etiam ut enim sagittis, rhoncus eros sed, scelerisque libero. Phasellus in dictum elit. \
+      Phasellus sit amet magna fermentum, lacinia ante eu, pulvinar ex. Cras venenatis sit amet nunc quis consequat. \
+      Nullam porttitor elit id felis fermentum consequat ac sit amet orci. Nunc a blandit sapien."
     }
   }
+  // const [isChecked, setIsChecked] = React.useState(false);
   React.useEffect(() => {
     setTimeout(() => {
       GetSubCategories().then((subcategories) => { setSubcategories(subcategories) })
     }, 2000);
   }, []);
 
+  const [isCheckedArray, setIsCheckedArray] = React.useState(
+    new Array(subcategories.length).fill(false)
+  );
+
   return (
     <Container fixed>
-      <MyComponent label="Elige tu destino" />
+      <MyComponent label="Explora tus elecciones favoritas" />
       <Box sx={{ flexGrow: 1, my: 2 }}>
         <Grid container spacing={{ xs: 2, md: 2 }} columns={{ xs: 2, sm: 2, md: 12 }}>
           {(subcategories.length === 0 ? Array.from(new Array(6)) : subcategories).map((item, index) => (
@@ -54,9 +61,16 @@ export default function Favorites() {
                     <Card elevation={4} sx={{ backgroundColor: '#F9F9F9' }}>
                     <div>
                       <Checkbox
-                        sx={{ position: 'absolute', top: 0, right: 0, margin: '8px'}} 
-                        icon={<BookmarkBorderIcon />}
+                        sx={{ position: 'absolute', top: 0, right: 0, margin: '8px',color: isCheckedArray[index] ? 'primary.main' : 'default', }} 
+                        icon={<BookmarkBorderIcon  />}
                         checkedIcon={<BookmarkIcon />}
+                        checked={!isCheckedArray[index]}
+                        // onChange={() => setIsChecked(!isChecked)}
+                        onChange={() => {
+                          const newArray = [...isCheckedArray];
+                          newArray[index] = !newArray[index];
+                          setIsCheckedArray(newArray);
+                        }}
                         onClick={(e) => {
                           e.stopPropagation();
                         }}
