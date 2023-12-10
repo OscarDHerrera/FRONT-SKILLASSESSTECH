@@ -2,6 +2,7 @@ import React from 'react';
 import {styled} from 'styled-components';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './components/home/Home';
+import UserProfile from './components/users/UserProfile';
 import Register from './components/login/Register';
 import UserTable from './components/users/UserTable';
 import Questions from './components/home/Questions';
@@ -41,6 +42,7 @@ export default function App() {
             <Route exact path='/' element={<Home />} />
             <Route exact path='/register' element={<Register setShowNav={setShowNav} />} />
             <Route exact path='/login' element={<Login setShowNav={setShowNav} />} />
+            <Route exact path='/user-profile' element={<UserProfile />} />
             <Route exact path='/subcategories/questions/:sub_name' element={<Questions />} />
             <Route exact path='/user-favorites' element={<Favorites />} />
             <Route exact path='/user-results' element={<UserTable />} />
