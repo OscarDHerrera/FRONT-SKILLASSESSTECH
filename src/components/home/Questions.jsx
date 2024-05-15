@@ -1,5 +1,5 @@
-import React from 'react';
-import { alpha, styled } from '@mui/material/styles';
+import React from 'react'
+import { alpha, styled } from '@mui/material/styles'
 import {
   Container,
   Grid,
@@ -13,26 +13,24 @@ import { GetQuestions } from './service/ServiceHome'
 
 const GreenSwitch = styled(Switch)(({ theme }) => ({
   '& .MuiSwitch-switchBase.Mui-checked': {
-    color: "#ff1837",
+    color: '#ff1837',
     '&:hover': {
-      backgroundColor: alpha("#ff1837", theme.palette.action.hoverOpacity),
-    },
+      backgroundColor: alpha('#ff1837', theme.palette.action.hoverOpacity)
+    }
   },
   '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-    backgroundColor: "#ff1837",
-  },
-}));
+    backgroundColor: '#ff1837'
+  }
+}))
 
-
-const label = { inputProps: { 'aria-label': 'Switch demo' } };
-export default function Questions() {
-
+const label = { inputProps: { 'aria-label': 'Switch demo' } }
+export default function Questions () {
   const [questions, setQuestions] = React.useState([])
 
   React.useEffect(() => {
     setTimeout(() => {
       GetQuestions().then((questions) => { setQuestions(questions) })
-    }, 2000);
+    }, 2000)
   }, [])
 
   return (
@@ -49,20 +47,22 @@ export default function Questions() {
               bgcolor: '#F9F9F9'
             }}
           >
-            {item ? (
-              <Grid item key={index} xs={3} sm={4} md={4}>
-                <Typography>
-                  <GreenSwitch {...label} />
-                  {item.question}
-                </Typography>
-              </Grid>
-            ) : (
-              <Grid item key={index} xs={3} sm={4} md={4}>
-                <Typography>
-                  <Skeleton animation="wave" />
-                </Typography>
-              </Grid>
-            )
+            {item
+              ? (
+                <Grid item key={index} xs={3} sm={4} md={4}>
+                  <Typography>
+                    <GreenSwitch {...label} />
+                    {item.question}
+                  </Typography>
+                </Grid>
+                )
+              : (
+                <Grid item key={index} xs={3} sm={4} md={4}>
+                  <Typography>
+                    <Skeleton animation="wave" />
+                  </Typography>
+                </Grid>
+                )
             }
           </Paper>
         ))}

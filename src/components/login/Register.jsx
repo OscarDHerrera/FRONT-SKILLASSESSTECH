@@ -1,8 +1,8 @@
-import React from 'react';
-import axios from 'axios';
+import React, { useEffect } from 'react'
+import axios from 'axios'
 import {
   Form
-} from 'react-bootstrap';
+} from 'react-bootstrap'
 
 import {
   Button,
@@ -12,89 +12,93 @@ import {
   Grid,
   Box,
   Paper,
-  InputAdornment, 
+  InputAdornment,
   IconButton
-} from '@mui/material';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { AppAlert } from "../../commons/AppAlert";
-import RegisterImage from '../../commons/images/RegisterImage.png';
-import Vector3 from '../../commons/images/Vector 3.png';
-import Vector4 from '../../commons/images/Vector 4.png';
-import Logo from '../../commons/images/black2.ico';
+} from '@mui/material'
+import Visibility from '@mui/icons-material/Visibility'
+import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import { AppAlert } from '../../commons/AppAlert'
+import RegisterImage from '../../commons/images/RegisterImage.png'
+import Vector3 from '../../commons/images/Vector 3.png'
+import Vector4 from '../../commons/images/Vector 4.png'
+import Logo from '../../commons/images/black2.ico'
+import PropTypes from 'prop-types'
 
-export default function FormPerson({setShowNav}) {
+export default function FormPerson ({ setShowNav }) {
+  FormPerson.propTypes = {
+    setShowNav: PropTypes.func.isRequired
+  }
 
-  React.useEffect(() => {
-    setShowNav(false);
-    return () => setShowNav(true);
-  }, []);
+  useEffect(() => {
+    setShowNav(false)
+    return () => setShowNav(true)
+  }, [])
 
   const [newPerson, setNewPerson] = React.useState({
-    name: "",
-    last_name: "",
-    id_number: "",
-    date_of_born: "",
-    email: "",
-    telephone: "",
-    password: "",
-  });
+    name: '',
+    last_name: '',
+    id_number: '',
+    date_of_born: '',
+    email: '',
+    telephone: '',
+    password: ''
+  })
 
-  const [severityResponse, setSeverityResponse] = React.useState("")
-  const [messageResponse, setMessageResponse] = React.useState("")
+  const [severityResponse, setSeverityResponse] = React.useState('')
+  const [messageResponse, setMessageResponse] = React.useState('')
   const [showAlert, setShowAlert] = React.useState(false)
-  const [showPassword, setShowPassword] = React.useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = React.useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = React.useState(false)
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
     setNewPerson({
       ...newPerson,
       [name]: value
-    });
-  };
+    })
+  }
 
-  const handleShowAlert = () => setShowAlert(true);
-  const handleCloseAlert = () => setShowAlert(false);
+  const handleShowAlert = () => setShowAlert(true)
+  const handleCloseAlert = () => setShowAlert(false)
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     axios
-      .post("http://10.40.100.57:8000/user/create_user", newPerson
+      .post('http://10.40.100.57:8000/user/create_user', newPerson
       ).then((res) => {
         const responseStatus = res
         if (responseStatus.status === 201) {
-          setSeverityResponse("success")
+          setSeverityResponse('success')
           setMessageResponse(responseStatus.data.message)
           setNewPerson({
             ...newPerson,
-            name: "",
-            last_name: "",
-            id_number: "",
-            date_of_born: "",
-            email: "",
-            telephone: "",
-            password: "",
+            name: '',
+            last_name: '',
+            id_number: '',
+            date_of_born: '',
+            email: '',
+            telephone: '',
+            password: ''
           })
-          handleShowAlert();
+          handleShowAlert()
         }
       })
       .catch((error) => {
         if (error.response.status === 409) {
-          setSeverityResponse("info")
+          setSeverityResponse('info')
           setMessageResponse(error.response.data.message)
-          handleShowAlert();
+          handleShowAlert()
         } else if (error.response.status === 422) {
-          setSeverityResponse("info")
+          setSeverityResponse('info')
           setMessageResponse(error.response.data.detail[0].msg)
-          handleShowAlert();
+          handleShowAlert()
         } else {
-          setSeverityResponse("error")
+          setSeverityResponse('error')
           setMessageResponse(error.message)
-          handleShowAlert();
+          handleShowAlert()
         }
       }
-      );
+      )
   }
 
   return (
@@ -109,17 +113,17 @@ export default function FormPerson({setShowNav}) {
         minHeight: 'calc(100vh - 100px)',
         padding: '0 10%',
         background: '#083cbc',
-        width: '100%',
+        width: '100%'
       }}
     >
-    
+
         <Box
           sx={{
             width: { xs: '12%', sm: '14%', md: '16%', lg: '18%', xl: '20%' },
             height: 'auto',
             position: 'absolute',
             left: { xs: '0%', sm: '0%', md: '0%', lg: '0%', xl: '0%' },
-            top:  { xs: '0%', sm: '0%', md: '0%', lg: '0%', xl: '0%' },
+            top: { xs: '0%', sm: '0%', md: '0%', lg: '0%', xl: '0%' }
           }}
         >
           <img
@@ -127,7 +131,7 @@ export default function FormPerson({setShowNav}) {
             alt="Vector3"
             style={{
               width: '100%',
-              height: '100%',
+              height: '100%'
             }}
           />
         </Box>
@@ -137,16 +141,16 @@ export default function FormPerson({setShowNav}) {
             height: 'auto',
             position: 'absolute',
             left: { xs: '-7%', sm: '-2%', md: '2%', lg: '4%', xl: '17%' },
-            top:  { xs: '-2%', sm: '-4%', md: '4%', lg: '4%', xl: '4%' },
+            top: { xs: '-2%', sm: '-4%', md: '4%', lg: '4%', xl: '4%' }
           }}
         >
-          <img 
-            src={RegisterImage} 
+          <img
+            src={RegisterImage}
             alt="RegisterImage"
             style={{
-            width: '100%', 
-            height: '100%'
-          }}
+              width: '100%',
+              height: '100%'
+            }}
           />
         </Box>
 
@@ -156,7 +160,7 @@ export default function FormPerson({setShowNav}) {
             height: 'auto',
             position: 'absolute',
             left: { xs: '0%', sm: '0%', md: '0%', lg: '0%', xl: '0%' },
-            top:  { xs: '120%', sm: '74%', md: '55%', lg: '44%', xl: '18%' },
+            top: { xs: '120%', sm: '74%', md: '55%', lg: '44%', xl: '18%' }
           }}
         >
           <img
@@ -164,7 +168,7 @@ export default function FormPerson({setShowNav}) {
             alt="Vector4"
             style={{
               width: '100%',
-              height: '100%',
+              height: '100%'
             }}
           />
         </Box>
@@ -176,30 +180,30 @@ export default function FormPerson({setShowNav}) {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            width: {xs: '90%', sm: '70%', md:'70%', lg:'70%', xl: '50%'},
-            height: {xs: '90%', sm: '90%', md: '70%', lg: '70%', xl: '70%'},
+            width: { xs: '90%', sm: '70%', md: '70%', lg: '70%', xl: '50%' },
+            height: { xs: '90%', sm: '90%', md: '70%', lg: '70%', xl: '70%' },
             padding: '2%',
-            position: 'relative',
+            position: 'relative'
           }}
         >
 
-          <Typography 
-              variant="h6" 
-              component="h1" 
+          <Typography
+              variant="h6"
+              component="h1"
               gutterBottom
               sx={{
                 border: '1px solid #000',
                 borderRadius: '20px',
                 position: 'absolute',
-                top: {xs: '-10px', sm: '-4px', md:'5px', lg:'10px', xl: '20px'},
+                top: { xs: '-10px', sm: '-4px', md: '5px', lg: '10px', xl: '20px' },
                 left: '50%',
                 transform: 'translateX(-50%)',
                 background: '#fff',
-                padding: '0 10px', 
+                padding: '0 10px'
               }}
             >
 
-              <img 
+              <img
                 src={Logo}
                 alt="Vector3"
                 style={{
@@ -207,7 +211,7 @@ export default function FormPerson({setShowNav}) {
                   height: '20px',
                   position: 'relative',
                   top: '-1px',
-                  left: '-5px',
+                  left: '-5px'
                 }}
               />
 
@@ -222,22 +226,22 @@ export default function FormPerson({setShowNav}) {
               padding: '20px',
               backgroundColor: '#fff',
               width: '100%',
-              height: '100%',
+              height: '100%'
             }}
           >
-    
-            <Typography variant="h6" component="h1" gutterBottom sx={{mt:4, textAlign: 'center'}}>
+
+            <Typography variant="h6" component="h1" gutterBottom sx={{ mt: 4, textAlign: 'center' }}>
                   Formulario de Registro
             </Typography>
 
             <Paper sx={{
-                padding: 2,
-                backgroundColor: '#fff',
-                border: '1px solid #000',
-                borderRadius: '20px',
-                width: 'fit-content',
-                m: 2,
-              }}
+              padding: 2,
+              backgroundColor: '#fff',
+              border: '1px solid #000',
+              borderRadius: '20px',
+              width: 'fit-content',
+              m: 2
+            }}
             >
               <Form onSubmit={handleSubmit}>
                 <Grid container spacing={2}>
@@ -263,8 +267,8 @@ export default function FormPerson({setShowNav}) {
                       onChange={handleInputChange}
                     />
                   </Grid>
-                  
-                  <Grid item xs={12} md={6}>                   
+
+                  <Grid item xs={12} md={6}>
                     <TextField
                       required
                       name="id_number"
@@ -349,7 +353,7 @@ export default function FormPerson({setShowNav}) {
                               {showPassword ? <VisibilityOff /> : <Visibility />}
                             </IconButton>
                           </InputAdornment>
-                        ),
+                        )
                       }}
                     />
                   </Grid>
@@ -374,7 +378,7 @@ export default function FormPerson({setShowNav}) {
                               {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
                             </IconButton>
                           </InputAdornment>
-                        ),
+                        )
                       }}
                     />
                   </Grid>
@@ -384,7 +388,7 @@ export default function FormPerson({setShowNav}) {
             </Paper>
           </Box>
         </Box>
-      
+
         <Grid container spacing={1} sx={{ mt: 2, mb: 2, textAlign: 'center' }}>
           <Grid item xs={12}>
             <Button
@@ -395,9 +399,9 @@ export default function FormPerson({setShowNav}) {
                 mr: 2,
                 backgroundColor: '#ffffff',
                 color: '#000000',
-                ":hover": {
+                ':hover': {
                   backgroundColor: '#000000',
-                  color: '#ffffff',
+                  color: '#ffffff'
                 }
               }}
             >
@@ -410,9 +414,9 @@ export default function FormPerson({setShowNav}) {
                 borderRadius: '50px',
                 backgroundColor: '#ffffff',
                 color: '#000000',
-                ":hover": {
+                ':hover': {
                   backgroundColor: '#000000',
-                  color: '#ffffff',
+                  color: '#ffffff'
                 }
               }}
             >

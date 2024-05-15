@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from 'react'
 import {
   Button,
   Container,
@@ -10,28 +10,36 @@ import {
   Paper,
   Divider,
   TextField
-} from '@mui/material';
+} from '@mui/material'
 import {
   Form
-} from 'react-bootstrap';
-import Draggable from 'react-draggable';
-import axios from 'axios';
+} from 'react-bootstrap'
+import Draggable from 'react-draggable'
+import axios from 'axios'
 import { GetUser } from './service/ServiceUser'
-
+import PropTypes from 'prop-types'
 
 /* -- Modal de eliminación usurario -- */
 
+export function DeleteUser ({ showDelete, handleCloseDelete, deleteId, setSeverityResponse, setMessageResponse, handleShowAlert, handleRefreshPage }) {
+  DeleteUser.propTypes = {
+    showDelete: PropTypes.bool,
+    handleCloseDelete: PropTypes.func,
+    deleteId: PropTypes.number,
+    setSeverityResponse: PropTypes.func,
+    setMessageResponse: PropTypes.func,
+    handleShowAlert: PropTypes.func,
+    handleRefreshPage: PropTypes.func
+  }
 
-export function DeleteUser({ showDelete, handleCloseDelete, delete_id, setSeverityResponse, setMessageResponse, handleShowAlert, handleRefreshPage }) {
-
-  const usersToDelete = { delete_id }
+  const usersToDelete = { deleteId }
   const nodeRef = React.useRef(null)
 
   if (!showDelete) {
     return null
   }
 
-  function PaperComponent(props) {
+  function PaperComponent (props) {
     return (
       <Draggable
         handle="#draggable-dialog-title"
@@ -40,29 +48,29 @@ export function DeleteUser({ showDelete, handleCloseDelete, delete_id, setSeveri
       >
         <Paper {...props} />
       </Draggable>
-    );
+    )
   }
 
   const deleteUser = () => {
     axios
-      .post(`http://10.40.100.57:8000/user/delete-user`, usersToDelete)
+      .post('http://10.40.100.57:8000/user/delete-user', usersToDelete)
       .then((res) => {
         const responseStatus = res
         if (responseStatus.status === 200) {
-          setSeverityResponse("success")
+          setSeverityResponse('success')
           setMessageResponse(responseStatus.data.message)
-          handleRefreshPage();
-          handleShowAlert();
+          handleRefreshPage()
+          handleShowAlert()
         }
       })
       .catch((error) => {
-        setSeverityResponse("error")
+        setSeverityResponse('error')
         setMessageResponse(error.response.data.message)
-        handleRefreshPage();
-        handleShowAlert();
+        handleRefreshPage()
+        handleShowAlert()
       })
-    handleCloseDelete();
-  };
+    handleCloseDelete()
+  }
 
   return (
     <Container fixed>
@@ -90,7 +98,9 @@ export function DeleteUser({ showDelete, handleCloseDelete, delete_id, setSeveri
             onClick={handleCloseDelete}
             variant="contained"
             sx={{
-              color: '#ffffff', bgcolor: '#333333', ":hover": {
+              color: '#ffffff',
+              bgcolor: '#333333',
+              ':hover': {
                 color: '#ffffff', bgcolor: '#333333'
               }
             }}
@@ -101,7 +111,9 @@ export function DeleteUser({ showDelete, handleCloseDelete, delete_id, setSeveri
             onClick={(() => deleteUser())}
             variant="contained"
             sx={{
-              color: '#333333', bgcolor: '#ff1837', ":hover": {
+              color: '#333333',
+              bgcolor: '#ff1837',
+              ':hover': {
                 color: '#ffffff', bgcolor: '#ff1837'
               }
             }}
@@ -111,23 +123,30 @@ export function DeleteUser({ showDelete, handleCloseDelete, delete_id, setSeveri
         </DialogActions>
       </Dialog>
     </Container>
-  );
+  )
 }
 
-
-
-export function EditUser({ showUpdate, handleCloseUpdate, update_id, setSeverityResponse, setMessageResponse, handleShowAlert, handleRefreshPage }) {
+export function EditUser ({ showUpdate, handleCloseUpdate, updateId, setSeverityResponse, setMessageResponse, handleShowAlert, handleRefreshPage }) {
+  EditUser.propTypes = {
+    showUpdate: PropTypes.bool,
+    handleCloseUpdate: PropTypes.func,
+    updateId: PropTypes.number,
+    setSeverityResponse: PropTypes.func,
+    setMessageResponse: PropTypes.func,
+    handleShowAlert: PropTypes.func,
+    handleRefreshPage: PropTypes.func
+  }
 
   const [updatePerson, setUpdatePerson] = React.useState({
-    role: "",
-    email: "",
-    name: "",
-    last_name: ""
-  });
+    role: '',
+    email: '',
+    name: '',
+    last_name: ''
+  })
 
   React.useEffect(() => {
     if (showUpdate === true) {
-      GetUser({ update_id }).then((userToUpdate) => {
+      GetUser({ updateId }).then((userToUpdate) => {
         setUpdatePerson({
           role: userToUpdate.role,
           email: userToUpdate.email,
@@ -136,8 +155,7 @@ export function EditUser({ showUpdate, handleCloseUpdate, update_id, setSeverity
         })
       })
     }
-  }, [showUpdate, update_id])
-
+  }, [showUpdate, updateId])
 
   if (!showUpdate) {
     return null
@@ -148,31 +166,30 @@ export function EditUser({ showUpdate, handleCloseUpdate, update_id, setSeverity
     setUpdatePerson({
       ...updatePerson,
       [name]: value
-    });
-  };
-
+    })
+  }
 
   const handleSubmit = (e) => {
     console.log(updatePerson)
     axios
-      .put(`http://10.40.100.57:8000/user/update_user/${update_id}`, updatePerson
+      .put(`http://10.40.100.57:8000/user/update_user/${updateId}`, updatePerson
       ).then((res) => {
         const responseStatus = res
         if (responseStatus.status === 200) {
-          setSeverityResponse("success")
+          setSeverityResponse('success')
           setMessageResponse(responseStatus.data.message)
-          handleRefreshPage();
-          handleShowAlert();
+          handleRefreshPage()
+          handleShowAlert()
         }
       })
       .catch((error) => {
         console.log(error)
-        setSeverityResponse("error")
+        setSeverityResponse('error')
         setMessageResponse(error.message)
-        handleRefreshPage();
-        handleShowAlert();
+        handleRefreshPage()
+        handleShowAlert()
       })
-    handleCloseUpdate();
+    handleCloseUpdate()
   }
 
   return (
@@ -232,7 +249,9 @@ export function EditUser({ showUpdate, handleCloseUpdate, update_id, setSeverity
             onClick={handleCloseUpdate}
             variant="contained"
             sx={{
-              color: '#ffffff', bgcolor: '#333333', ":hover": {
+              color: '#ffffff',
+              bgcolor: '#333333',
+              ':hover': {
                 color: '#ffffff', bgcolor: '#333333'
               }
             }}
@@ -243,7 +262,9 @@ export function EditUser({ showUpdate, handleCloseUpdate, update_id, setSeverity
             onClick={() => handleSubmit()}
             variant="contained"
             sx={{
-              color: '#333333', bgcolor: '#ff1837', ":hover": {
+              color: '#333333',
+              bgcolor: '#ff1837',
+              ':hover': {
                 color: '#ffffff', bgcolor: '#ff1837'
               }
             }}
@@ -255,4 +276,3 @@ export function EditUser({ showUpdate, handleCloseUpdate, update_id, setSeverity
     </Container>
   )
 }
-

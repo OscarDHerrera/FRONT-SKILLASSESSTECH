@@ -1,37 +1,37 @@
-import React from 'react';
-import {styled} from 'styled-components';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from './components/home/Home';
-import UserProfile from './components/users/UserProfile';
-import Register from './components/login/Register';
-import UserTable from './components/users/UserTable';
-import Questions from './components/home/Questions';
-import Favorites from './components/home/Favorites';
+import React from 'react'
+import { styled } from 'styled-components'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Home from './components/home/Home'
+import UserProfile from './components/users/UserProfile'
+import Register from './components/login/Register'
+import UserTable from './components/users/UserTable'
+import Questions from './components/home/Questions'
+import Favorites from './components/home/Favorites'
 import Footer from './layouts/Footer'
-import BarraNav from './layouts/BarraNav';
-import Login from './components/login/Login';
-import { createTheme, ThemeProvider } from '@mui/material';
+import BarraNav from './layouts/BarraNav'
+import Login from './components/login/Login'
+import { createTheme, ThemeProvider } from '@mui/material'
 
 const theme = createTheme({
   typography: {
-    fontFamily: 'Fira Code',
-  },
-});
+    fontFamily: 'Fira Code'
+  }
+})
 
 const BodyContainer = styled.div`
   display: grid;
   grid-template-rows: auto 1fr auto;
   min-height: 100vh;
-`;
+`
 
 const FooterContainer = styled.div`
   width: 100%;
   height: 80px;
   flex-shrink: 0;
-`;
+`
 
-export default function App() {
-  const [showNav, setShowNav] = React.useState(true);
+export default function App () {
+  const [showNav, setShowNav] = React.useState(true)
 
   return (
     <BodyContainer >
@@ -53,5 +53,5 @@ export default function App() {
       </FooterContainer>
       </ThemeProvider>
     </BodyContainer>
-  );
+  )
 }

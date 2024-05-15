@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from 'react'
 import {
   AppBar,
   Container,
@@ -17,38 +17,41 @@ import {
   ListItem,
   ListItemButton,
   ListItemText
-} from '@mui/material';
-import { GetPages, GetSettings } from './service/LayoutService';
+} from '@mui/material'
+import { GetPages, GetSettings } from './service/LayoutService'
 import BlackIcon from '../commons/images/black2.ico'
+import PropTypes from 'prop-types'
 
-const drawerWidth = 240;
+const drawerWidth = 240
 
-export default function BarraNav() {
-
+export default function BarraNav () {
   const [pages, setPages] = React.useState([])
   const [settings, setSettings] = React.useState([])
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [openNav, setOpenNav] = React.useState(false);
+  const [anchorElUser, setAnchorElUser] = React.useState(null)
+  const [openNav, setOpenNav] = React.useState(false)
 
   React.useEffect(
     () => {
       GetPages().then((pages) => { setPages(pages) })
       GetSettings().then((settings) => { setSettings(settings) })
-    }, []);
+    }, [])
 
   const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
+    setAnchorElUser(event.currentTarget)
+  }
 
   const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+    setAnchorElUser(null)
+  }
 
   const handleDrawerToggle = () => {
-    setOpenNav(!openNav);
-  };
+    setOpenNav(!openNav)
+  }
 
-  function NavegationsList({ items }) {
+  function NavegationsList ({ items }) {
+    NavegationsList.propTypes = {
+      items: PropTypes.array
+    }
     return (
       <List>
         {items.map((item) => (
@@ -56,7 +59,8 @@ export default function BarraNav() {
             <ListItemButton
               href={`${item.url}`}
               sx={{
-                color: '#083cbc', ":hover": {
+                color: '#083cbc',
+                ':hover': {
                   color: '#ffff', bgcolor: '#333333'
                 }
               }}
@@ -66,15 +70,14 @@ export default function BarraNav() {
           </ListItem>
         ))}
       </List>
-    );
+    )
   }
 
   const skillassesstechTypographyStyle = {
     fontWeight: 'bold',
     textDecoration: 'none',
-    cursor: "pointer",
-  };
-
+    cursor: 'pointer'
+  }
 
   const optionList = (
     <div>
@@ -83,27 +86,31 @@ export default function BarraNav() {
         {/* Pantalla Pequeña Navbar  */}
 
         <IconButton onClick={handleDrawerToggle} sx={{ mr: 2 }}>
-          <img 
-            src={BlackIcon} 
+          <img
+            src={BlackIcon}
             alt="My icon"
             style={{
-              transition: '0.3s',
-            }} 
-            onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.2)'}
-            onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+              transition: '0.3s'
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.transform = 'scale(1.2)'
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.transform = 'scale(1)'
+            }}
           />
         </IconButton>
         <Typography
           component={'a'}
           variant="h6"
           noWrap
-          href={"/"}
+          href={'/'}
           sx={{
             mr: 2,
             color: '#333333',
             ...skillassesstechTypographyStyle,
-            ":hover": {
-              color: '#083cbc',
+            ':hover': {
+              color: '#083cbc'
             }
           }}
         >
@@ -114,7 +121,7 @@ export default function BarraNav() {
       <NavegationsList items={pages} />
       <NavegationsList items={settings} />
     </div>
-  );
+  )
 
   return (
     <main>
@@ -122,29 +129,33 @@ export default function BarraNav() {
         <Container maxWidth={'xxl'}>
           <Toolbar disableGutters>
             {/* Pantalla Grande  */}
-            <IconButton href={"/"} sx={{display: { xs: 'none', md: 'flex' }}}>
-              <img 
-                src={BlackIcon} 
-                alt="My icon" 
+            <IconButton href={'/'} sx={{ display: { xs: 'none', md: 'flex' } }}>
+              <img
+                src={BlackIcon}
+                alt="My icon"
                 style={{
-                  transition: '0.3s',
-                }} 
-                onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.2)'}
-                onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                  transition: '0.3s'
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.transform = 'scale(1.2)'
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.transform = 'scale(1)'
+                }}
               />
             </IconButton>
             <Typography
               component={'a'}
               variant="h6"
               noWrap
-              href={"/"}
+              href={'/'}
               sx={{
                 mr: 2,
                 display: { xs: 'none', md: 'flex' },
                 color: '#333333',
                 ...skillassesstechTypographyStyle,
-                ":hover": {
-                  color: '#083cbc',
+                ':hover': {
+                  color: '#083cbc'
                 }
               }}
             >
@@ -157,7 +168,9 @@ export default function BarraNav() {
                   href={`${page.url}`}
                   key={page.id}
                   sx={{
-                    marginTop: '5px', color: '#333333', ":hover": {
+                    marginTop: '5px',
+                    color: '#333333',
+                    ':hover': {
                       color: '#ffff', bgcolor: '#083cbc'
                     }
                   }
@@ -177,14 +190,18 @@ export default function BarraNav() {
                   aria-controls="menu-appbar"
                   onClick={handleDrawerToggle}
                 >
-                  <img 
-                    src={BlackIcon} 
-                    alt="My icon" 
+                  <img
+                    src={BlackIcon}
+                    alt="My icon"
                     style={{
-                      transition: '0.3s',
+                      transition: '0.3s'
                     }}
-                    onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.2)'}
-                    onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                    onMouseOver={(e) => {
+                      e.currentTarget.style.transform = 'scale(1.2)'
+                    }}
+                    onMouseOut={(e) => {
+                      e.currentTarget.style.transform = 'scale(1)'
+                    }}
                   />
                 </IconButton>
                 <Typography
@@ -197,8 +214,8 @@ export default function BarraNav() {
                     display: { xs: 'flex', md: 'none' },
                     color: '#333333',
                     ...skillassesstechTypographyStyle,
-                    ":hover": {
-                      color: '#083cbc',
+                    ':hover': {
+                      color: '#083cbc'
                     }
                   }}
                 >
@@ -215,29 +232,29 @@ export default function BarraNav() {
                   open={openNav}
                   onClose={handleDrawerToggle}
                   ModalProps={{
-                    keepMounted: true,
+                    keepMounted: true
                   }}
                   sx={{
                     display: { xs: 'block', sm: 'none' },
-                    '& .MuiDrawer-paper': { 
-                      boxSizing: 'border-box', 
+                    '& .MuiDrawer-paper': {
+                      boxSizing: 'border-box',
                       width: drawerWidth
-                    },
+                    }
                   }}
                 >
                   {optionList}
                 </Drawer>
-                
+
                 <Drawer
                   variant="temporary"
                   open={openNav}
                   onClose={handleDrawerToggle}
                   ModalProps={{
-                    keepMounted: true,
+                    keepMounted: true
                   }}
                   sx={{
                     display: { xs: 'none', sm: 'block' },
-                    '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                    '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth }
                   }}
 
                 >
@@ -261,12 +278,12 @@ export default function BarraNav() {
                 anchorEl={anchorElUser}
                 anchorOrigin={{
                   vertical: 'top',
-                  horizontal: 'right',
+                  horizontal: 'right'
                 }}
                 keepMounted
                 transformOrigin={{
                   vertical: 'top',
-                  horizontal: 'right',
+                  horizontal: 'right'
                 }}
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
@@ -277,7 +294,8 @@ export default function BarraNav() {
                     href={`${setting.url}`}
                     key={setting.id}
                     sx={{
-                      color: '#333333', ":hover": {
+                      color: '#333333',
+                      ':hover': {
                         color: '#ffff', bgcolor: '#333333'
                       }
                     }}
@@ -293,4 +311,3 @@ export default function BarraNav() {
     </main>
   )
 }
-

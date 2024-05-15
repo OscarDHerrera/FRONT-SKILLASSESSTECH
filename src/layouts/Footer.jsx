@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-
+import styled from 'styled-components'
+import React from 'react'
 
 const FooterContainer = styled.div`
   width: 100%;
@@ -11,7 +11,7 @@ const FooterContainer = styled.div`
   position: sticky;
   bottom: 0;
   font-family: 'Fira Code';
-`;
+`
 
 const FooterWrapper = styled.div`
   max-width: 1200px;
@@ -21,7 +21,7 @@ const FooterWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
+`
 
 const FooterRow = styled.div`
   display: flex;
@@ -33,7 +33,7 @@ const FooterRow = styled.div`
   @media (max-width: 600px) {
     justify-content: center;
   }
-`;
+`
 
 const FooterColumn = styled.div`
   display: flex;
@@ -41,7 +41,7 @@ const FooterColumn = styled.div`
   justify-content: center;
   align-items: center;
   margin: 10px;
-`;
+`
 
 const FooterLink = styled.a`
   color: #ffffff;
@@ -51,20 +51,20 @@ const FooterLink = styled.a`
   &:hover {
     text-decoration: underline;
   }
-`;
+`
 
 const FooterTitle = styled.h3`
   font-size: 16px;
   margin-bottom: 10px;
   font-family: 'Fira Code';
   font-weight: bold;
-`;
+`
 
 const FooterBottom = styled.div`
   margin-top: auto;
-`;
+`
 
-export default function Footer() {
+export default function Footer () {
   return (
     <FooterContainer>
       <FooterWrapper>
@@ -93,5 +93,5 @@ export default function Footer() {
         </FooterBottom>
       </FooterWrapper>
     </FooterContainer>
-  );
+  )
 };
