@@ -47,7 +47,7 @@ export default function Login ({ setShowNav }) {
   useEffect(() => {
     setShowNav(false)
     return () => setShowNav(true)
-  }, [])
+  }, [setShowNav])
 
   return (
     <Container

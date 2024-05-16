@@ -40,8 +40,8 @@ export default function App () {
       <BrowserRouter>
           <Routes style={{ flex: '1 0 auto' }}>
             <Route exact path='/' element={<Home />} />
-            <Route exact path='/register' element={<Register setShowNav={setShowNav} />} />
             <Route exact path='/login' element={<Login setShowNav={setShowNav} />} />
+            <Route exact path='/register' element={<Register setShowNav={setShowNav} />} />
             <Route exact path='/user-profile' element={<UserProfile />} />
             <Route exact path='/subcategories/questions/:sub_name' element={<Questions />} />
             <Route exact path='/user-favorites' element={<Favorites />} />

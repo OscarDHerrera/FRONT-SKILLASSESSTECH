@@ -32,7 +32,7 @@ export default function FormPerson ({ setShowNav }) {
   useEffect(() => {
     setShowNav(false)
     return () => setShowNav(true)
-  }, [])
+  }, [setShowNav])
 
   const [newPerson, setNewPerson] = React.useState({
     name: '',
