@@ -15,7 +15,7 @@ export function GetCategories () {
 }
 
 export function GetSubCategories () {
-  const apiUrl = 'https://mocki.io/v1/3aeb943a-4e9e-48e0-9875-868368d752fd'
+  const apiUrl = 'https://mocki.io/v1/e37474f5-5ec4-41b9-8745-e93e80b81f82'
   return fetch(apiUrl)
     .then((res) => res.json())
     .then((response) => {

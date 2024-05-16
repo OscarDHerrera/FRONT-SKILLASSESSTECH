@@ -7,9 +7,38 @@ import Logo from '../../commons/images/black2.ico'
 import Vector1 from '../../commons/images/Vector 1.png'
 import Vector2 from '../../commons/images/Vector 2.png'
 import PropTypes from 'prop-types'
+import { AppAlert } from '../../commons/AppAlert'
+import { useNavigate } from 'react-router-dom'
 
 export default function Login ({ setShowNav }) {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [severityResponse, setSeverityResponse] = React.useState('')
+  const [messageResponse, setMessageResponse] = React.useState('')
+  const [showAlert, setShowAlert] = React.useState(false)
   const [showPassword, setShowPassword] = useState(false)
+
+  const handleShowAlert = () => setShowAlert(true)
+  const handleCloseAlert = () => setShowAlert(false)
+  const navigate = useNavigate()
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    if (!email || !password) {
+      setSeverityResponse('error')
+      setMessageResponse('Por favor, llena todos los campos')
+      handleShowAlert()
+    } else {
+      setSeverityResponse('success')
+      setMessageResponse('Inicio de sesión exitoso')
+      handleShowAlert()
+
+      setTimeout(() => {
+        navigate('/')
+      }, 2000)
+    }
+  }
 
   Login.propTypes = {
     setShowNav: PropTypes.func.isRequired
@@ -39,7 +68,8 @@ export default function Login ({ setShowNav }) {
           height: 'auto',
           position: 'absolute',
           left: { xs: '0%', sm: '0%', md: '0%', lg: '0%', xl: '0%' },
-          top: { xs: '0%', sm: '0%', md: '0%', lg: '0%', xl: '0%' }
+          top: { xs: '0%', sm: '0%', md: '0%', lg: '0%', xl: '0%' },
+          display: { xs: 'none', md: 'none', lg: 'none', xl: 'flex' }
         }}
       >
         <img
@@ -58,7 +88,8 @@ export default function Login ({ setShowNav }) {
           height: 'auto',
           position: 'absolute',
           left: { xs: '0%', sm: '0%', md: '0%', lg: '0%', xl: '70%' },
-          top: { xs: '120%', sm: '74%', md: '55%', lg: '44%', xl: '40%' }
+          top: { xs: '120%', sm: '74%', md: '57%', lg: '41%', xl: '48%' },
+          display: { xs: 'none', md: 'none', lg: 'none', xl: 'flex' }
         }}
       >
         <img
@@ -109,12 +140,18 @@ export default function Login ({ setShowNav }) {
           fullWidth
           sx={{ mb: 2 }}
           variant="standard"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <TextField
           label="Ingresa tu Contraseña"
           type={showPassword ? 'text' : 'password'}
           sx={{ mb: 2 }}
           variant="standard"
+          required
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -141,7 +178,15 @@ export default function Login ({ setShowNav }) {
 
         <Button
           variant="contained"
-          sx={{ borderRadius: '50px', bgcolor: '#083cbc' }}
+          onClick={handleSubmit}
+          sx={{
+            borderRadius: '50px',
+            bgcolor: '#083cbc',
+            ':hover': {
+              backgroundColor: '#000000',
+              color: '#ffffff'
+            }
+          }}
         >
           Iniciar Sesión
         </Button>
@@ -167,6 +212,11 @@ export default function Login ({ setShowNav }) {
       >
         <img src={LoginImage} alt="Login" />
       </Box>
+      <AppAlert handleCloseAlert={handleCloseAlert}
+        showAlert={showAlert}
+        severityResponse={severityResponse}
+        messageResponse={messageResponse}
+      />
     </Container>
   )
 };

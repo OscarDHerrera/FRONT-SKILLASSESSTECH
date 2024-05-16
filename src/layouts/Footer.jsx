@@ -89,7 +89,7 @@ export default function Footer () {
           </FooterColumn>
         </FooterRow>
         <FooterBottom>
-          <p>Derechos reservados © 2023</p>
+          <p>Derechos reservados © 2024</p>
         </FooterBottom>
       </FooterWrapper>
     </FooterContainer>

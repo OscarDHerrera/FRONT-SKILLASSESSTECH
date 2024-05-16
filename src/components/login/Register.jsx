@@ -123,7 +123,8 @@ export default function FormPerson ({ setShowNav }) {
             height: 'auto',
             position: 'absolute',
             left: { xs: '0%', sm: '0%', md: '0%', lg: '0%', xl: '0%' },
-            top: { xs: '0%', sm: '0%', md: '0%', lg: '0%', xl: '0%' }
+            top: { xs: '0%', sm: '0%', md: '0%', lg: '0%', xl: '0%' },
+            display: { xs: 'none', md: 'none', lg: 'none', xl: 'flex' }
           }}
         >
           <img
@@ -160,7 +161,8 @@ export default function FormPerson ({ setShowNav }) {
             height: 'auto',
             position: 'absolute',
             left: { xs: '0%', sm: '0%', md: '0%', lg: '0%', xl: '0%' },
-            top: { xs: '120%', sm: '74%', md: '55%', lg: '44%', xl: '18%' }
+            top: { xs: '120%', sm: '74%', md: '55%', lg: '44%', xl: '18%' },
+            display: { xs: 'none', md: 'none', lg: 'none', xl: 'flex' }
           }}
         >
           <img
@@ -223,7 +225,7 @@ export default function FormPerson ({ setShowNav }) {
             sx={{
               border: '1px solid #000',
               borderRadius: '20px',
-              padding: '20px',
+              padding: '5px',
               backgroundColor: '#fff',
               width: '100%',
               height: '100%'
@@ -404,6 +406,7 @@ export default function FormPerson ({ setShowNav }) {
                   color: '#ffffff'
                 }
               }}
+              href='/login'
             >
               Cancelar
             </Button>
@@ -419,6 +422,7 @@ export default function FormPerson ({ setShowNav }) {
                   color: '#ffffff'
                 }
               }}
+              href='/login'
             >
               Guardar
             </Button>
