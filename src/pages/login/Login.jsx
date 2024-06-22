@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Container, Box, Button, TextField, Typography, Link, InputAdornment, IconButton } from '@mui/material'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
@@ -8,7 +9,8 @@ import Vector1 from '../../commons/images/Vector 1.png'
 import Vector2 from '../../commons/images/Vector 2.png'
 import PropTypes from 'prop-types'
 import { AppAlert } from '../../commons/AppAlert'
-import { useNavigate } from 'react-router-dom'
+import api from '../../api'
+import { ACCESS_TOKEN, REFRESH_TOKEN } from '../../constants'
 
 export default function Login ({ setShowNav }) {
   const [email, setEmail] = useState('')
@@ -17,12 +19,11 @@ export default function Login ({ setShowNav }) {
   const [messageResponse, setMessageResponse] = React.useState('')
   const [showAlert, setShowAlert] = React.useState(false)
   const [showPassword, setShowPassword] = useState(false)
-
+  const navigate = useNavigate()
   const handleShowAlert = () => setShowAlert(true)
   const handleCloseAlert = () => setShowAlert(false)
-  const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     if (!email || !password) {
@@ -30,13 +31,17 @@ export default function Login ({ setShowNav }) {
       setMessageResponse('Por favor, llena todos los campos')
       handleShowAlert()
     } else {
-      setSeverityResponse('success')
-      setMessageResponse('Inicio de sesión exitoso')
-      handleShowAlert()
-
-      setTimeout(() => {
-        navigate('/')
-      }, 2000)
+      try {
+        const res = await api.post('/account/token/', { email, password })
+        localStorage.setItem(ACCESS_TOKEN, res.data.access)
+        localStorage.setItem(REFRESH_TOKEN, res.data.refresh)
+        navigate('/home')
+      } catch (error) {
+        console.error(error)
+        setSeverityResponse('error')
+        setMessageResponse('Error al iniciar sesión')
+        handleShowAlert()
+      }
     }
   }
 

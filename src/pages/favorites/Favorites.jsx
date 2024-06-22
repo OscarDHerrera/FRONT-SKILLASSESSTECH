@@ -13,7 +13,7 @@ import {
   CardActionArea
 } from '@mui/material'
 
-import { GetSubCategories } from './service/ServiceHome'
+import { GetSubCategories } from '../home/service/ServiceHome'
 import Checkbox from '@mui/material/Checkbox'
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
 import BookmarkIcon from '@mui/icons-material/Bookmark'

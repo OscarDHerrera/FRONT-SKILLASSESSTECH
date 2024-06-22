@@ -18,7 +18,6 @@ import {
   ListItemButton,
   ListItemText
 } from '@mui/material'
-// import { GetPages, GetSettings } from './service/LayoutService'
 import BlackIcon from '../commons/images/black2.ico'
 import PropTypes from 'prop-types'
 
@@ -30,21 +29,15 @@ export default function BarraNav () {
   const [anchorElUser, setAnchorElUser] = React.useState(null)
   const [openNav, setOpenNav] = React.useState(false)
 
-  // React.useEffect(
-  //   () => {
-  //     GetPages().then((pages) => { setPages(pages) })
-  //     GetSettings().then((settings) => { setSettings(settings) })
-  //   }, [])
-
   React.useEffect(() => {
     const pages = [
       { id: 1, name: 'Inicio', url: '/' },
-      { id: 2, name: 'Resultados', url: '/user-results' },
-      { id: 3, name: 'Favoritos', url: '/user-favorites' }
+      { id: 2, name: 'Resultados', url: '/results' },
+      { id: 3, name: 'Favoritos', url: '/favorites' }
     ]
     const settings = [
-      { id: 1, name: 'Perfil', url: '/user-profile' },
-      { id: 2, name: 'Cerrar Sesión', url: '/login' }
+      { id: 1, name: 'Perfil', url: '/profile' },
+      { id: 2, name: 'Cerrar Sesión', url: '/logout' }
     ]
     setPages(pages)
     setSettings(settings)

@@ -1,3 +1,5 @@
+// import axios from 'axios'
+
 export function GetCategories () {
   const apiUrl = 'https://mocki.io/v1/20dde3d2-fbca-4209-9e5d-2a1892c5f6dd'
   return fetch(apiUrl)
@@ -45,3 +47,21 @@ export function GetQuestions () {
       }
     })
 }
+
+// Ejemplo de construccion de las consultas a la API
+// export function GetPages () {
+//   const apiUrl = 'http://127.0.0.1:8000/SAT/pages'
+//   return axios.get(apiUrl)
+//     .then((res) => res.data)
+//     .then((res) => {
+//       const { data = [] } = res
+//       if (Array.isArray(data)) {
+//         const pages = data.map((page) => {
+//           const { id, name, url } = page
+//           return { id, name, url }
+//         })
+//         return pages
+//       }
+//     }
+//     )
+// }

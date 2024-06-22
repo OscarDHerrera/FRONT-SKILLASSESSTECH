@@ -9,7 +9,7 @@ import {
   Skeleton
 } from '@mui/material'
 
-import { GetQuestions } from './service/ServiceHome'
+import { GetQuestions } from '../home/service/ServiceHome'
 
 const GreenSwitch = styled(Switch)(({ theme }) => ({
   '& .MuiSwitch-switchBase.Mui-checked': {
