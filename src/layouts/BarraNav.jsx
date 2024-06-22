@@ -31,7 +31,7 @@ export default function BarraNav () {
 
   React.useEffect(() => {
     const pages = [
-      { id: 1, name: 'Inicio', url: '/' },
+      { id: 1, name: 'Inicio', url: '/home' },
       { id: 2, name: 'Resultados', url: '/results' },
       { id: 3, name: 'Favoritos', url: '/favorites' }
     ]
@@ -111,7 +111,7 @@ export default function BarraNav () {
           component={'a'}
           variant="h6"
           noWrap
-          href={'/'}
+          href={'/home'}
           sx={{
             mr: 2,
             color: '#333333',
@@ -136,7 +136,7 @@ export default function BarraNav () {
         <Container maxWidth={'xxl'}>
           <Toolbar disableGutters>
             {/* Pantalla Grande  */}
-            <IconButton href={'/'} sx={{ display: { xs: 'none', md: 'flex' } }}>
+            <IconButton href={'/home'} sx={{ display: { xs: 'none', md: 'flex' } }}>
               <img
                 src={BlackIcon}
                 alt="My icon"
@@ -155,7 +155,7 @@ export default function BarraNav () {
               component={'a'}
               variant="h6"
               noWrap
-              href={'/'}
+              href={'/home'}
               sx={{
                 mr: 2,
                 display: { xs: 'none', md: 'flex' },
@@ -215,7 +215,7 @@ export default function BarraNav () {
                   component={'a'}
                   variant="h6"
                   noWrap
-                  href={'/'}
+                  href={'/home'}
                   sx={{
                     mr: 2,
                     display: { xs: 'flex', md: 'none' },
