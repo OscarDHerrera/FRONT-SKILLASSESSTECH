@@ -23,3 +23,15 @@ En el directorio del proyecto, puedes ejecutar:
 ### `npm start`
 Ejecuta la aplicación en modo de desarrollo.
 Abre [http://localhost:3000](http://localhost:3000) para visualizarlo en tu navegador.
+
+### Listado de Rutas
+
+- `*` (Redirige a `/login`)
+- `/register` (Muestra la página de registro)
+- `/login` (Muestra la página de inicio de sesión)
+- `/logout` (Redirige a `/login`)
+- `/home` (Muestra la página de inicio)
+- `/profile` (Muestra el perfil del usuario)
+- `/evaluation/questions` (Muestra las preguntas de evaluación)
+- `/favorites` (Muestra los favoritos del usuario)
+- `/results` (Muestra los resultados del usuario)
