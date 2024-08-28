@@ -1,19 +1,9 @@
-// import axios from 'axios'
+import api from '../../../api'
 
-export function GetCategories () {
-  const apiUrl = 'https://mocki.io/v1/20dde3d2-fbca-4209-9e5d-2a1892c5f6dd'
-  return fetch(apiUrl)
-    .then((res) => res.json())
-    .then((response) => {
-      const { message = [] } = response
-      if (Array.isArray(message)) {
-        const categories = message.map((user) => {
-          const { moduleId, moduleLink, moduleName, resumeModule } = user
-          return { moduleId, moduleLink, moduleName, resumeModule }
-        })
-        return categories
-      }
-    })
+export async function GetCategories () {
+  const response = await api.get('/offers/')
+  // console.log(response.data)
+  return Array.from(response.data)
 }
 
 export function GetSubCategories () {
